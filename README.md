@@ -1,4 +1,4 @@
-# COP4331-Small Project
+# COP4331-Small Project Group 5
 
 ## **Overview**
 - Web Application for COP4331 that works as a contact manager allowing login/signup and basic CRUD operations.
@@ -28,7 +28,7 @@
 
 ### **Branching and Pull Request Guidelines:**
 1. **Branch into `dev`:**
-   ```bash
+     ```bash
      git checkout dev
      ```
 
