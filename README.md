@@ -10,9 +10,10 @@
 - Login
 - Sign Up
 - Create Contact
-- Search Contact
+- Read Contact
 - Update Contact
 - Delete Contact
+- Search Contacts
 
 ## **Features**
 - User authentication
