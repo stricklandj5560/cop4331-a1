@@ -5,16 +5,17 @@
 	$searchResults = "";
 	$searchCount = 0;
 
-	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
+	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331"); //username and password
+
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
 	} 
 	else
 	{
-		$stmt = $conn->prepare("select FirstName, LastName from Contacts where FirstName like ? and UserID=?");
-		$searchName = "%" . $inData["search"] . "%"; //added searchName
-		$stmt->bind_param("ss", $searchName, $inData["userId"]); //2 s to pass 2 string parameters
+		$stmt = $conn->prepare("select * from Contacts where (FirstName like ? OR LastName like ? OR Phone like ? OR Email like ? OR UserID like ?) and UserID=?"); //search based on whatever user would like
+		$searchName = "%" . $inData["search"] . "%"; 
+		$stmt->bind_param("ss", $searchName, $inData["userId"]);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
@@ -26,7 +27,7 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '{"FirstName":"' . $row["FirstName"] . '","LastName":"' . $row["LastName"] . '"}';
+			$searchResults .= '{"FirstName":"' . $row["FirstName"] . '","LastName":"' . $row["LastName"] . '","Phone":"' . $row["Phone"] . '","Email":"' . $row["Email"] . '","UserID":"' . $row["UserID"] . '"}'; //provides a json object of the contact
 		}
 		
 		if( $searchCount == 0 )
