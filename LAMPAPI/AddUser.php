@@ -1,8 +1,8 @@
 <?php
 	$inData = getRequestInfo();
 	
-	$firstname = $inData["firstname"];
-	$lastname = $inData["lastname"];
+	$firstname = $inData["FirstName"];
+	$lastname = $inData["LastName"];
 	$login = $inData["login"];
 	$password = $inData["password"];
 
@@ -13,7 +13,7 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("INSERT into Contacts (FirstName, LastName, Login, Password) VALUES(?,?)");
+		$stmt = $conn->prepare("INSERT into Contacts (FirstName, LastName, Login, Password) VALUES(?,?,?,?)");
 		$stmt->bind_param("ssss", $firstname, $lastname, $login, $password);
 		$stmt->execute();
 		$stmt->close();
