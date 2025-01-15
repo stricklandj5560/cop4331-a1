@@ -3,8 +3,8 @@
 	
 	$firstname = $inData["FirstName"];
 	$lastname = $inData["LastName"];
-	$login = $inData["login"];
-	$password = $inData["password"];
+	$login = $inData["Login"];
+	$password = $inData["Password"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error) 
@@ -13,7 +13,7 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("INSERT into Contacts (FirstName, LastName, Login, Password) VALUES(?,?,?,?)");
+		$stmt = $conn->prepare("INSERT into Users (FirstName, LastName, Login, Password) VALUES(?,?,?,?)");
 		$stmt->bind_param("ssss", $firstname, $lastname, $login, $password);
 		$stmt->execute();
 		$stmt->close();
