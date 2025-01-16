@@ -22,7 +22,7 @@
 		returnWithError($conn->connect_error);
 
 	} else {
-		$stmt = $conn->prepare("SELECT COUNT(*) FROM Users WHERE Login = ?");
+		$stmt = $conn->prepare("SELECT COUNT(*) as count FROM Users WHERE Login = ?");
 		$stmt->bind_param("s", $login);
 		$stmt->execute();
 		$result = $stmt->get_result();
