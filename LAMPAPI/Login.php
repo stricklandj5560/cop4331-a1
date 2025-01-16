@@ -1,6 +1,9 @@
 
 <?php
-
+	header("Access-Control-Allow-Origin: *");
+	header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+	header("Access-Control-Allow-Headers: Content-Type, Authorization");
+	
 	$inData = getRequestInfo();
 	
 	$id = 0;
@@ -21,7 +24,7 @@
 
 		if( $row = $result->fetch_assoc()  )
 		{
-			returnWithInfo( $row['FirstName'], $row['LastName'], $row['UserID'] );
+			returnWithInfo( $row['FirstName'], $row['LastName'], $row['ID'] );
 		}
 		else
 		{

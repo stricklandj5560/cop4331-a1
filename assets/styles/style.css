@@ -33,6 +33,13 @@ body{
     margin-bottom: 50px;
 }
 
+#un-pw-incorr-lbl {
+    color: red;
+    font-size: 20px;
+    /* stay hidden until incorrect pw or un is entered */
+    display: none; 
+}
+
 .auth-block {
     background-color: white;
     width: 50%;
