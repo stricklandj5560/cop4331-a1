@@ -17,8 +17,13 @@
 		$stmt->bind_param("s", $login);
 		$stmt->execute();
 		$result = $stmt->get_result();
+		$row = $result->fetch_assoc();
 		
-		if ($result == 0) {
+		if ($row['count'] > 0) {//login already exists!
+			returnWithError("username '$login' is already taken.");
+			
+		} 
+		else { 
 			$stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Login, Password) VALUES(?,?,?,?)");
 			$stmt->bind_param("ssss", $firstname, $lastname, $login, $password);
 			$stmt->execute();
@@ -28,9 +33,6 @@
 			} else {
 				returnWithError("failed to insert the user");
 			}
-		} 
-		else { //login already exists!
-			returnWithError("username '$login' is already taken.");
 		}
 		$stmt->close();
 		$conn->close();
