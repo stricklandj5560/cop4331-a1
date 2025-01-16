@@ -32,7 +32,6 @@ const signIn = () => {
 
     } catch (error) {
         console.error("Error during login:", error);
-        alert("An error occurred during login. Please try again.");
     }
 }
 
@@ -42,23 +41,37 @@ const signUp = () => {
     const username = document.querySelector("#sign-up-username").value;
     // TODO: hash the password
     const password = document.querySelector("#sign-up-password").value;
+
+    // check if anything is blank!
+    if (firstname === '' || lastname === '' || username === '' || password === '')
+        return;
     
-    // TODO: connect the api
-    alert(`Firstname: ${firstname}\nLastname: ${lastname}\nUsername: ${username}\nPassword: ${password}`);
+    try {
+        API.registerUser(firstname,lastname,username,password).then((res) => {
+            if (res.error === '') {
+                alert('Succesfully added user');
+            } else {
+                alert(res.error);
+            }
+        })
+    } catch (error) {
+        console.log("Uknown error when attempting to call sign up API");
+    }
 }
 
 class API {
     static BASE_API_URL = 'http://answerstopoosfinal.online/dev/LAMPAPI/';
 
-    static async login(username, password) {
+    /**
+     * Function to make a basic post API call to a given endpoint.
+     * @param {String} url API Url to post to
+     * @param {Dict} body JSON Body 
+     * @returns 
+     */
+    static async baseAPIPostCall(url, body) {
         return new Promise((resolve, reject) => {
             let request = new XMLHttpRequest();
-            let apiurl = API.BASE_API_URL + "Login.php";
-            const body = {
-                "login": username,
-                "password": password
-            };
-            request.open("POST", apiurl);
+            request.open("POST", url);
             request.setRequestHeader('Content-Type', 'application/json');
             request.send(JSON.stringify(body));
             // get that response
@@ -79,5 +92,39 @@ class API {
                 });
             };
         });
+    }
+
+    /**
+     * Logs user in and returns user JSON object from API.
+     * @param {String} username user's username
+     * @param {String} password user's password
+     * @returns JSON user object
+     */
+    static async login(username, password) {
+       const body = {
+        'login'   : username,
+        'password': password
+       }
+       const url = this.BASE_API_URL + "Login.php";
+       return this.baseAPIPostCall(url, body);
+    }
+
+    /**
+     * Registers user
+     * @param {*} firstName 
+     * @param {*} lastName 
+     * @param {*} userName 
+     * @param {*} password 
+     * @returns 
+     */
+    static async registerUser(firstName, lastName, userName, password) {
+        const body = {
+            'FirstName' : firstName,
+            'LastName'  : lastName,
+            'Login'     : userName,
+            'Password'  : password
+        };
+        const url = this.BASE_API_URL + "AddUser.php";
+        return this.baseAPIPostCall(url, body);
     }
 }

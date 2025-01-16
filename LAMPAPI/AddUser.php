@@ -1,4 +1,13 @@
 <?php
+	header("Access-Control-Allow-Origin: *");
+	header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+	header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
+	if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+		header("HTTP/1.1 200 OK");
+		exit(0);
+	}
+	
 	$inData = getRequestInfo();
 	
 	$firstname = $inData["FirstName"];
@@ -21,9 +30,7 @@
 		
 		if ($row['count'] > 0) {//login already exists!
 			returnWithError("username '$login' is already taken.");
-			
-		} 
-		else { 
+		} else { 
 			$stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Login, Password) VALUES(?,?,?,?)");
 			$stmt->bind_param("ssss", $firstname, $lastname, $login, $password);
 			$stmt->execute();
