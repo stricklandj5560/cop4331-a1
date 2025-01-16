@@ -11,7 +11,7 @@ const toggleSignType = () => {
 }
 
 const signIn = () => {
-    const username = document.querySelector("#sign-in-username").value;
+    const username = document.querySelector("#sign-in-username").value.toLowerCase();
     // TODO: hash the password
     const password = document.querySelector("#sign-in-password").value;
     const incorrectUNPWlbl = document.querySelector('#un-pw-incorr-lbl');
@@ -47,7 +47,7 @@ const signUp = () => {
         return;
     
     try {
-        API.registerUser(firstname,lastname,username,password).then((res) => {
+        API.registerUser(firstname,lastname,username.toLowerCase(),password).then((res) => {
             if (res.error === '') {
                 alert('Succesfully added user');
             } else {
