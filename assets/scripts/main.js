@@ -1,6 +1,3 @@
-// import {API} from './api.js';
-// import {User} from './models/user.js';
-
 const toggleSignType = () => {
     const formBlock = document.querySelector('.auth-block');
     if (formBlock == undefined) {
@@ -60,6 +57,7 @@ const signUp = () => {
 }
 
 class API {
+    // todo: make sure this is production URL by the time we deploy.
     static BASE_API_URL = 'http://answerstopoosfinal.online/dev/LAMPAPI/';
 
     /**
