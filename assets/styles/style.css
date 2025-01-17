@@ -1,25 +1,89 @@
 :root {
-    --green: #98cfb2;
+    --main-background: #001d3d;
     --dark-green: #498766;
+    --btn-color: white;
+    --btn-hover: #498766;
 }
 
-* {
-    box-sizing: border-box;
-    padding: 0;
+
+html, body {
+    height: 100%;
     margin: 0;
+    width: 100%;
+    background-color: var(--main-background);
 }
 
-body{
-    background-color: var(--green);
+body {
     font-size: 20px;
     /* TODO: find a good font */
     font-family: 'Arial';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.header {
-    background-color: #f8c6cf;
-    height: 200px;
-    margin-bottom: 100px;
+.sign-up-in {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.side-view {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(270deg,  #7400b8, #e07a5f, #5e60ce, #d90429);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    background-size: 1600% 1600%;
+    animation: gradientAnimation 10s ease infinite;
+}
+
+.side-view-lbl {
+    font-size: 50px;
+    color: white;
+    mix-blend-mode: difference;
+    text-align: left;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.side-view-lbl-subheader {
+    font-size: 25px;
+    color: white;
+    mix-blend-mode: difference;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.main-island {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    min-height: 600px;
+    width: 70vw;
+    min-width: 500px;
+    background-color: #edf2f4;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 
 .container {
@@ -40,20 +104,12 @@ body{
     display: none; 
 }
 
-.auth-block {
-    background-color: white;
-    width: 50%;
-    text-align: center;
-    margin: auto;
-    padding: 40px 0;
-    border-radius: 20px;
-    box-shadow: 0px 10px 30px black;
-}
 
 .form-header {
     margin-bottom: 40px;
     font-size: 34px;
 }
+
 .form-row {
     margin-bottom: 10px;
     font-size: 26px;
@@ -64,12 +120,10 @@ body{
 }
 
 .form-row-input {
-    font-size: 26px;
-    border-radius: 10px;
+    font-size: 20px;
     border: none;
     border: 1px solid rgb(100, 100, 100, 30%);
     box-shadow: 0 0 10px rgb(100, 100, 100, 30%);
-    /* height: 1.5em; */
     padding: 10px 15px;
 }
 
@@ -77,15 +131,14 @@ body{
     font-size: 30px;
     padding: 10px 40px;
     margin-top: 20px;
-    border-radius: 10px;
-    background-color: var(--green);
+    background-color: var(--btn-color);
     margin-bottom: 30px;
     cursor: pointer;
     transition: color .3s ease-in-out, background-color .3s ease-in-out;
 }
 
 .submit-btn:hover {
-    background-color: var(--dark-green);
+    background-color: var(--btn-hover);
     color: white;
 }
 
@@ -94,26 +147,37 @@ body{
 }
 
 .toggle-btn {
-    color: var(--green);
+    color: #2b503c;
     transition: color .3s ease-in-out;
     cursor: pointer;
     /* TODO: make more visible maybe? */
 }
 
 .toggle-btn:hover {
-    color: var(--dark-green);
+    color: var(--btn-hover);
 }
 
 .sign-in {
     display: none;
+    height: 100%;
 }
 
 .auth-block.sign-in-type .sign-in {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: left;
+    justify-content: center;
 }
 
 .auth-block.sign-in-type .sign-up {
     display: none;
+    height: 100%;
+}
+
+.auth-block {
+    display: flex;
+    align-items: center;
 }
 
 .footer {
@@ -125,68 +189,4 @@ body{
     height: 100px;
     padding: 30px 0;
     text-align: center;
-}
-
-.pendulum{
-    width: 50;
-    height: 45px;
-    /* background-color: #f8c6cf; */
-    /* top:50%;
-    left:  50%; */
-    border-radius: 5%;
-    align-items: center;
-    border-top: 15px solid #eee7d5;
-    /* transform: translate(-50%, -50%); */
-    width: 10%;
-    margin: auto;
-}
-.pendulum_box{
-    display: flex;
-    padding: 120px 0 0 10px;
-    /* position: absolute; */
-    flex: 1;
-}
-.ball{
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    background-color: #455681;
-    position: relative;
-    transform-origin: 50% -300%;
-    
-}
-.ball::before{
-    content: '';
-    width: 2px;
-    height: 120px;
-    background-color: #fffeff;
-    left: 18px;
-    top: -120px;
-    position: absolute;
-}
-
-.ball.first{
-    animation: firstball .9s alternate ease-in infinite;
-}
-
-@keyframes firstball{
-    0%{
-        transform: rotate(35deg);
-    }
-    50%{
-        transform: rotate(0deg);
-    }
-}
-
-.ball.last{
-    animation: lastball .9s alternate ease-out infinite;
-}
-
-@keyframes lastball{
-    50%{
-        transform: rotate(0deg);
-    }
-    100%{
-        transform: rotate(-35deg);
-    }
 }
