@@ -12,7 +12,7 @@ else
 {
     // Check if the contact exists and belongs to the user
     $stmt = $conn->prepare("SELECT ID FROM Contacts WHERE ID=? AND UserID=?");
-    $stmt->bind_param("ii", $inData["contactId"], $inData["userId"]);
+    $stmt->bind_param("ii", $inData["ID"], $inData["UserID"]); // ID is the personal contactid assigned
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -20,7 +20,7 @@ else
     {
         // Update the contact's details
         $stmt = $conn->prepare("UPDATE Contacts SET FirstName=?, LastName=?, Phone=?, Email=? WHERE ID=? AND UserID=?");
-        $stmt->bind_param("ssssii", $inData["firstName"], $inData["lastName"], $inData["phone"], $inData["email"], $inData["contactId"], $inData["userId"]);
+        $stmt->bind_param("ssssii", $inData["FirstName"], $inData["LastName"], $inData["Phone"], $inData["Email"], $inData["ID"], $inData["UserID"]);
 
         if ($stmt->execute())
         {
