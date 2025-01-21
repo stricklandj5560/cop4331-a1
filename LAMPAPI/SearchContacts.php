@@ -14,7 +14,7 @@
 	else
 	{
 		$stmt = $conn->prepare("select * from Contacts where (FirstName like ? OR LastName like ? OR Phone like ? OR Email like ?) and UserID=?"); //search based on whatever user would like
-		$searchName = "%" . $inData["search"] . "%"; 
+		$searchName = "%" . $inData["Search"] . "%"; 
 		$stmt->bind_param("ssssi", $searchName, $searchName, $searchName, $searchName, $inData["UserID"]);
 		$stmt->execute();
 		
