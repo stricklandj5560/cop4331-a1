@@ -14,8 +14,8 @@
 	else
 	{
 		$stmt = $conn->prepare("select * from Contacts where (FirstName like ? OR LastName like ? OR Phone like ? OR Email like ?) and UserID = ?"); //search based on whatever user would like
-		$searchName = "%" . $inData["Search"] . "%"; 
-		$stmt->bind_param("ssssi", $searchName, $searchName, $searchName, $searchName, $inData["UserID"]);
+		$searchName = "%" . $inData["search"] . "%";  //lowercase "search" when testing
+		$stmt->bind_param("ssssi", $searchName, $searchName, $searchName, $searchName, $inData["userId"]); // "userId" when testing
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
