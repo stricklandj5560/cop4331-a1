@@ -46,7 +46,9 @@ const signUp = () => {
     try {
         API.registerUser(firstname,lastname,username.toLowerCase(),password).then((res) => {
             if (res.error === '') {
-                alert('Succesfully added user');
+                // set
+                //document.querySelector('#sign-in-username').value = username;
+                toggleSignType();
             } else {
                 alert(res.error);
             }
