@@ -23,6 +23,9 @@ const signIn = () => {
             if (res.error === '') {
                 console.log("Login successful.");
                 alert('User ID: ' + res.id)
+
+            //redirect to landing page
+            window.location.href = "contacts.html";
             // show error label.
             } else {
                 incorrectUNPWlbl.style.display = 'inline';
