@@ -45,6 +45,34 @@ function cancelAddContact() {
     document.getElementById("contactContainer").classList.remove("hidden");
 }
 
+function emailKeyTyped() {
+    const email      = document.getElementById("newEmail").value;
+    const emailError = document.getElementById("errorMessageEmail");
+    if (isEmailFormatValid(email))
+        emailError.style.display = "none";
+    else
+        emailError.style.display = "inline";
+        
+}
+
+function phoneKeyTyped() {
+    const phone      = document.getElementById("newPhone").value;
+    const phoneError = document.getElementById("errorMessagePhone");
+    if (isValidPhoneNumber(phone))
+        phoneError.style.display = "none";
+    else
+        phoneError.style.display = "inline";
+}
+
+function isEmailFormatValid(email) {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(email);  
+}
+
+function isValidPhoneNumber(phone) {
+    const regex = /^\d{3}-\d{3}-\d{4}$/;
+    return regex.test(phone);
+  }
 
 /**
  * Adds a new contact to a user.
@@ -61,6 +89,7 @@ async function saveNewContact() {
         alert("Please fill in all fields.");
         return;
     }
+
 
     const result = User.getInstance().addContact(firstName,lastName,phone,email);
     if (result) {

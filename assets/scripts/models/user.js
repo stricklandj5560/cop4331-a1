@@ -85,9 +85,12 @@ class User {
     }
 
     /**
-     * Searches a user's contacts
-     * @param {String} searchStr 
-     * @returns True if add user was successful
+     * Attempts to add a contact.
+     * @param {String} firstName 
+     * @param {String} lastName 
+     * @param {String} phone 
+     * @param {String} email 
+     * @returns True if successful
      */
     async addContact(firstName, lastName, phone, email) {
         // attemp api add

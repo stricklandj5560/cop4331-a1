@@ -64,13 +64,19 @@
                     <label for="newLastName">Last Name:</label>
                     <input type="text" id="newLastName" placeholder="Enter last name">
                 </div>
-                <div class="form-group">
-                    <label for="newPhone">Phone:</label>
-                    <input type="text" id="newPhone" placeholder="Enter phone">
+                <div class="error-wrapper">
+                    <div class="form-group">
+                        <label for="newPhone">Phone:</label>
+                        <input type="text" oninput="phoneKeyTyped()" id="newPhone" placeholder="Ex: 123-123-1234" >
+                    </div>
+                    <p style="color:red; display: none;" id="errorMessagePhone">Phone format must follow: 123-123-1234</p>
                 </div>
-                <div class="form-group">
-                    <label for="newEmail">Email:</label>
-                    <input type="text" id="newEmail" placeholder="Enter email">
+                <div class="error-wrapper">
+                    <div class="form-group">
+                        <label for="newEmail">Email:</label>
+                        <input type="text" oninput="emailKeyTyped()" id="newEmail" placeholder="Ex: name@gmail.com">
+                    </div>
+                    <p style="color: red; display: none;" id="errorMessageEmail">Email format must follow: name@host.com</p>
                 </div>
                 <button class="save-btn" onclick="saveNewContact()">Save Contact</button>
                 <button class="cancel-btn" onclick="cancelAddContact()">Cancel</button>
