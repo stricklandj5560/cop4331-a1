@@ -68,7 +68,7 @@ class API {
         return this.baseAPIPostCall(url, body);
     }
 
-    
+
     /**
      * Adds a new contact.
      * @param {String} firstName first name
@@ -77,12 +77,13 @@ class API {
      * @param {String} email  email address
      * @returns 
      */
-    static async addContact(firstName, lastName, phone, email) {
+    static async addContact(userID, firstName, lastName, phone, email) {
         const body = {
-            'FirstName': firstName,
-            'LastName': lastName,
-            'Phone': phone,
-            'Email': email,
+            'UserID'    : userID,
+            'FirstName' : firstName,
+            'LastName'  : lastName,
+            'Phone'     : phone,
+            'Email'     : email,
         };
         const url = this.BASE_API_URL + "AddContact.php";
         return this.baseAPIPostCall(url, body);

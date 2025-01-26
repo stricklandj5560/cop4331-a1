@@ -3,6 +3,11 @@
     header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
     header("Access-Control-Allow-Headers: Content-Type, Authorization");
     
+    if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+		header("HTTP/1.1 200 OK");
+		exit(0);
+	}
+
     $inData = getRequestInfo();
     
     $contactId = $inData["ID"];  //certain id of contact that is to be deleted

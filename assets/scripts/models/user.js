@@ -83,4 +83,18 @@ class User {
         if (user === null || user === '');
             sessionStorage.setItem('user', '');
     }
+
+    /**
+     * Searches a user's contacts
+     * @param {String} searchStr 
+     * @returns True if add user was successful
+     */
+    async addContact(firstName, lastName, phone, email) {
+        // attemp api add
+        await API.addContact(this.#id,firstName,lastName,phone,email).then((response) => {
+            if (response.error === '')
+                return true;
+        });
+        return false;
+    }
 }
