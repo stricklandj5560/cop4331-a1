@@ -1,0 +1,170 @@
+
+:root {
+    --main-background: #002B3D; 
+    --header-background: #05D960; 
+    --button-background: #6a0dad; 
+    --button-hover: #9146ff; 
+    --delete-btn: #e74c3c; 
+    --delete-hover: #c0392b; 
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--main-background);
+    color: black;
+    box-sizing: border-box;
+}
+
+.hidden {
+    display: none;
+}
+
+
+.header {
+    padding: 20px;
+    text-align: center;
+    background: var(--header-background);
+    color: black;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+
+.searchbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    width: 80%;
+}
+
+.searchbar input {
+    width: 80%;
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.searchbar .search-btn {
+    padding: 15px;
+    border: none;
+    background-color: #ccc;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+
+.content-area {
+    background-color: #d3d3d3; 
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; 
+}
+
+.form-group {
+    display: flex;
+    align-items: center; 
+    gap: 10px;
+    width: 100%; 
+    max-width: 400px; 
+}
+
+.form-group label {
+    width: 120px; 
+    font-weight: bold;
+    text-align: right;
+}
+
+.form-group input {
+    flex: 1; 
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.save-btn {
+    background-color: var(--button-background);
+    color: white;
+}
+
+.save-btn:hover {
+    background-color: var(--button-hover);
+}
+
+.cancel-btn {
+    background-color: var(--delete-btn);
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: var(--delete-hover);
+}
+
+.delete-btn {
+    background-color: var(--delete-btn);
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: var(--delete-hover);
+}
+
+.edit-btn {
+    background-color: var(--button-background);
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: var(--button-hover);
+}
+
+.add-contact-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.add-contact-btn {
+    padding: 15px 30px;
+    background-color: var(--button-background);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.add-contact-btn:hover {
+    background-color: var(--button-hover);
+}
+
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
