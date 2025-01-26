@@ -1,3 +1,22 @@
+// check to see if user exists.
+function pageLoad() {
+    let user = User.getInstance();
+
+    // if a user is null, that means we don't have a login
+    if (!user.isLoggedIn()) {
+        console.log("User not logged in... redirection to login page.");
+        window.location.href = "index.html";
+        return;
+    }
+
+    document.getElementById('welcome-header-lbl').innerHTML = "Welcome, " + user.getFirstName() + "!";
+}
+
+function logUserOut() {
+    User.getInstance().logOut();
+    window.location.href = "index.html";
+}
+
 
 function showDeleteConfirmation() {
     document.getElementById("deleteConfirmation").classList.remove("hidden");
@@ -18,6 +37,7 @@ async function deleteContact() {
 function addContact() {
     document.getElementById("addContactForm").classList.remove("hidden");
     document.getElementById("contactContainer").classList.add("hidden");
+    User.getInstance().signOut();
 }
 
 

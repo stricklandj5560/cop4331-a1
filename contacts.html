@@ -1,92 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="assets/scripts/api.js"></script>
-    <script src="assets/scripts/contact.js"></script>
-    <script type="text/javascript" src="assets/scripts/md5.js"></script>
-    <link rel="stylesheet" href="assets/styles/style2.css">
-    <title>Contacts Page</title>
-</head>
-</head>
-<body class="contact-page">
-    
-    <div class="header">
-        <p>WELCOME ...</p>
-    </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="assets/scripts/api.js"></script>
+        <script src="assets/scripts/contact.js"></script>
+        <script src="assets/scripts/models/user.js"></script>
+        <script type="text/javascript" src="assets/scripts/md5.js"></script>
+        <link rel="stylesheet" href="assets/styles/style2.css">
+        <title>Contacts Page</title>
+    </head>
+    <body onload="pageLoad()" class="contact-page">
+        
+        <div class="header">
+            <p id="welcome-header-lbl">Welcome </p>
+            <button type="button" onclick="logUserOut()">Log Out</button>
+        </div>
 
-    <!--generic search button-->
-    <div class="searchbar">
-        <input type="text" id="searchInput" placeholder="Search...">
-        <button class="search-btn" onclick="searchContact()">🔍</button>
-    </div>
+        <!--generic search button-->
+        <div class="searchbar">
+            <input type="text" id="searchInput" placeholder="Search...">
+            <button class="search-btn" onclick="searchContact()">🔍</button>
+        </div>
 
-    
-    <div id="contactContainer" class="content-area hidden">
-        <div class="contact-details">
-            <div class="form-group">
-                <label for="firstName">First Name:</label>
-                <input type="text" id="firstName" readonly>
-            </div>
-            <div class="form-group">
-                <label for="lastName">Last Name:</label>
-                <input type="text" id="lastName" readonly>
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone:</label>
-                <input type="text" id="phone" readonly>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="text" id="email" readonly>
-            </div>
+        
+        <div id="contactContainer" class="content-area hidden">
+            <div class="contact-details">
+                <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone:</label>
+                    <input type="text" id="phone" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" readonly>
+                </div>
 
-            <!-- generic edit and delete buttons -->
+                <!-- generic edit and delete buttons -->
+                <div class="actions">
+                    <button class="edit-btn" onclick="editContact()">✏️ Edit</button>
+                    <button class="delete-btn" onclick="showDeleteConfirmation()">🗑️ Delete</button>
+                </div>
+            </div>
+        </div>
+
+        
+        <div id="addContactForm" class="content-area hidden">
+            <h3>Add New Contact</h3>
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="newFirstName">First Name:</label>
+                    <input type="text" id="newFirstName" placeholder="Enter first name">
+                </div>
+                <div class="form-group">
+                    <label for="newLastName">Last Name:</label>
+                    <input type="text" id="newLastName" placeholder="Enter last name">
+                </div>
+                <div class="form-group">
+                    <label for="newPhone">Phone:</label>
+                    <input type="text" id="newPhone" placeholder="Enter phone">
+                </div>
+                <div class="form-group">
+                    <label for="newEmail">Email:</label>
+                    <input type="text" id="newEmail" placeholder="Enter email">
+                </div>
+                <button class="save-btn" onclick="saveNewContact()">Save Contact</button>
+                <button class="cancel-btn" onclick="cancelAddContact()">Cancel</button>
+            </div>
+        </div>
+
+        
+        <div id="deleteConfirmation" class="content-area hidden">
+            <h3>Are you sure you want to delete this contact?</h3>
             <div class="actions">
-                <button class="edit-btn" onclick="editContact()">✏️ Edit</button>
-                <button class="delete-btn" onclick="showDeleteConfirmation()">🗑️ Delete</button>
+                <button class="cancel-btn" onclick="cancelDelete()">Cancel</button>
+                <button class="delete-btn" onclick="deleteContact()">Delete</button>
             </div>
         </div>
-    </div>
 
-    
-    <div id="addContactForm" class="content-area hidden">
-        <h3>Add New Contact</h3>
-        <div class="form-section">
-            <div class="form-group">
-                <label for="newFirstName">First Name:</label>
-                <input type="text" id="newFirstName" placeholder="Enter first name">
-            </div>
-            <div class="form-group">
-                <label for="newLastName">Last Name:</label>
-                <input type="text" id="newLastName" placeholder="Enter last name">
-            </div>
-            <div class="form-group">
-                <label for="newPhone">Phone:</label>
-                <input type="text" id="newPhone" placeholder="Enter phone">
-            </div>
-            <div class="form-group">
-                <label for="newEmail">Email:</label>
-                <input type="text" id="newEmail" placeholder="Enter email">
-            </div>
-            <button class="save-btn" onclick="saveNewContact()">Save Contact</button>
-            <button class="cancel-btn" onclick="cancelAddContact()">Cancel</button>
+        
+        <div class="add-contact-container">
+            <button class="add-contact-btn" onclick="addContact()">Add Contact +</button>
         </div>
-    </div>
-
-    
-    <div id="deleteConfirmation" class="content-area hidden">
-        <h3>Are you sure you want to delete this contact?</h3>
-        <div class="actions">
-            <button class="cancel-btn" onclick="cancelDelete()">Cancel</button>
-            <button class="delete-btn" onclick="deleteContact()">Delete</button>
-        </div>
-    </div>
-
-    
-    <div class="add-contact-container">
-        <button class="add-contact-btn" onclick="addContact()">Add Contact +</button>
-    </div>
-</body>
+    </body>
 </html>

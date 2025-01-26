@@ -67,23 +67,25 @@ class API {
         const url = this.BASE_API_URL + "AddUser.php";
         return this.baseAPIPostCall(url, body);
     }
+
+    
     /**
- * Adds a new contact.
- * @param {String} firstName first name
- * @param {String} lastName  last name
- * @param {String} phone  phone number
- * @param {String} email  email address
- * @returns 
- */
-static async addContact(firstName, lastName, phone, email) {
-    const body = {
-        'FirstName': firstName,
-        'LastName': lastName,
-        'Phone': phone,
-        'Email': email,
-    };
-    const url = this.BASE_API_URL + "AddContact.php";
-    return this.baseAPIPostCall(url, body);
-}
+     * Adds a new contact.
+     * @param {String} firstName first name
+     * @param {String} lastName  last name
+     * @param {String} phone  phone number
+     * @param {String} email  email address
+     * @returns 
+     */
+    static async addContact(firstName, lastName, phone, email) {
+        const body = {
+            'FirstName': firstName,
+            'LastName': lastName,
+            'Phone': phone,
+            'Email': email,
+        };
+        const url = this.BASE_API_URL + "AddContact.php";
+        return this.baseAPIPostCall(url, body);
+    }
 
 }

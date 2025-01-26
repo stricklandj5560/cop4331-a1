@@ -1,3 +1,9 @@
+const pageLoad = () => {
+    let user = User.getInstance();
+    if (user.isLoggedIn())
+        window.location.href = "contacts.html";
+}
+
 const toggleSignType = () => {
     const formBlock = document.querySelector('.auth-block');
     if (formBlock == undefined) {
@@ -21,11 +27,12 @@ const signIn = () => {
         // Call the API to log in
         API.login(username, hashedPassword).then((res) => {
             if (res.error === '') {
-                console.log("Login successful.");
-                alert('User ID: ' + res.id)
+                console.log("Login successful.");    
+                // store user.
+                sessionStorage.setItem('user', JSON.stringify(res));
 
-            //redirect to landing page
-            window.location.href = "contacts.html";
+                //redirect to landing page
+                window.location.href = "contacts.html";
             // show error label.
             } else {
                 incorrectUNPWlbl.style.display = 'inline';
