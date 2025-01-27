@@ -9,25 +9,25 @@
     <script type="text/javascript" src="assets/scripts/md5.js"></script>
     <script type="text/javascript" src="assets/scripts/api.js"></script>
     <script type="text/javascript" src="assets/scripts/models/user.js"></script>
-    <title>Document</title>
+    <title>Log In to ATPF</title>
 </head>
 <body onload="pageLoad();">
     <div class="main-island">
-        <section class="sign-up-in auth-block">
+        <section class="sign-up-in auth-block sign-in-type">
             <div class="sign-in">
                 <h3 class="form-header">Sign in to your account</h3>
                 <div class="sign-form">
                     <div class="form-row">
-                        <label class="form-row-text" for="sign-in-username">
-                            Username:
+                        <input placeholder=" " class="form-row-input" type="text" id="sign-in-username" name="username" >
+                        <label class="form-row-label" for="sign-in-username">
+                            Username
                         </label>
-                        <input class="form-row-input" type="text" id="sign-in-username" name="username" >
                     </div>
                     <div class="form-row">
-                        <label class="form-row-text" for="sign-in-password">
-                            Password:
+                        <input placeholder=" " class="form-row-input" type="password" id="sign-in-password" name="password"> 
+                        <label class="form-row-label" for="sign-in-password">
+                            Password
                         </label>
-                        <input class="form-row-input" type="password" id="sign-in-password" name="password"> 
                     </div>
                     <div class="form-row">
                         <label id="un-pw-incorr-lbl">Invalid Username or Password</label>
@@ -40,28 +40,28 @@
                 <h3 class="form-header">Create an account</h3>
                 <div class="sign-form">
                     <div class="form-row">
-                        <label class="form-row-text" for="firstname">
+                        <input placeholder=" " class="form-row-input" type="text" id="firstname" name="firstname" >
+                        <label class="form-row-label" for="firstname">
                             First name:
                         </label>
-                        <input class="form-row-input" type="text" id="firstname" name="firstname" >
                     </div>
                     <div class="form-row">
-                        <label class="form-row-text" for="lastname">
+                        <input placeholder=" " class="form-row-input" type="text" id="lastname" name="lastname" >
+                        <label class="form-row-label" for="lastname">
                             Last name:
                         </label>
-                        <input class="form-row-input" type="text" id="lastname" name="lastname" >
                     </div>
                     <div class="form-row">
-                        <label class="form-row-text" for="sign-up-username">
+                        <input placeholder=" " class="form-row-input" type="text" id="sign-up-username" name="username" >
+                        <label class="form-row-label" for="sign-up-username">
                             Username:
                         </label>
-                        <input class="form-row-input" type="text" id="sign-up-username" name="username" >
                     </div>
                     <div class="form-row">
-                        <label class="form-row-text" for="sign-up-password">
+                        <input placeholder=" " class="form-row-input" type="password" id="sign-up-password" name="password">
+                        <label class="form-row-label" for="sign-up-password">
                             Password:
                         </label>
-                        <input class="form-row-input" type="password" id="sign-up-password" name="password">
                     </div>
                     <button class="submit-btn" type="submit" onclick="signUp();">Sign Up</button>
                 </div>

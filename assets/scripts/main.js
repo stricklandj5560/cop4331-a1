@@ -48,7 +48,6 @@ const signUp = () => {
     const firstname = document.querySelector("#firstname").value;
     const lastname = document.querySelector("#lastname").value;
     const username = document.querySelector("#sign-up-username").value;
-    // TODO: hash the password
     const password = document.querySelector("#sign-up-password").value;
 
     // check if anything is blank!

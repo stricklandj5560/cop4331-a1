@@ -5,6 +5,14 @@
     --btn-hover: #498766;
 }
 
+@font-face {
+    font-family: 'RO-Spritendo';
+    src: url('../fonts/RoSpritendoSemiboldBeta-vmVwZ.otf');
+}
+
+* {
+    box-sizing: border-box;
+}
 
 html, body {
     height: 100%;
@@ -16,11 +24,12 @@ html, body {
 body {
     font-size: 20px;
     /* TODO: find a good font */
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
     display: flex;
     justify-content: center;
     align-items: center;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    letter-spacing: .02rem;
 }
 
 .sign-up-in {
@@ -51,13 +60,15 @@ body {
     color: white;
     mix-blend-mode: difference;
     text-align: left;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    font-family:'RO-Spritendo';
+    margin-bottom: 10px;
 }
 
 .side-view-lbl-subheader {
     font-size: 25px;
     color: white;
     mix-blend-mode: difference;
+    /* font-family:'RO-Spritendo'; */
 }
 
 @keyframes gradientAnimation {
@@ -113,18 +124,38 @@ body {
 .form-row {
     margin-bottom: 10px;
     font-size: 26px;
+    position: relative;
 }
 
-.form-row-text {
+.form-row-label {
     margin-right: 5px;
+    position: absolute;
+    left: 15px;
+    top: 65%;
+    transform: translateY(-50%);
+    font-family: Arial;
+    pointer-events: none;
+    font-size: 24px;
+    transition: font-size .3s ease-in-out, 
+        top .3s ease-in-out, 
+        color .3s ease-in-out;
+}
+
+.form-row-input:not(:placeholder-shown) ~ .form-row-label,
+.form-row-input:focus ~ .form-row-label {
+    top: 30%;
+    font-size: 18px;
+    color: var(--dark-green);
 }
 
 .form-row-input {
-    font-size: 20px;
+    font-size: 24px;
     border: none;
     border: 1px solid rgb(100, 100, 100, 30%);
     box-shadow: 0 0 10px rgb(100, 100, 100, 30%);
-    padding: 10px 15px;
+    padding: 35px 15px 15px 15px;
+    width: 100%;
+    border-radius: 10px;
 }
 
 .submit-btn {
@@ -135,15 +166,18 @@ body {
     margin-bottom: 30px;
     cursor: pointer;
     transition: color .3s ease-in-out, background-color .3s ease-in-out;
+    border-radius: 5px;
 }
 
-.submit-btn:hover {
+.submit-btn:hover,
+.submit-btn:active {
     background-color: var(--btn-hover);
     color: white;
 }
 
 .form-toggle-text {
     font-size: 24px;
+    margin: 0;
 }
 
 .toggle-btn {
@@ -160,14 +194,21 @@ body {
 .sign-in {
     display: none;
     height: 100%;
-}
-
-.auth-block.sign-in-type .sign-in {
-    display: flex;
+    width: 100%;
+    padding: 0 15%;
     flex-direction: column;
     height: 100%;
     align-items: left;
     justify-content: center;
+}
+
+.sign-up {
+    width: 100%;
+    padding: 0 15%;
+}
+
+.auth-block.sign-in-type .sign-in {
+    display: flex;
 }
 
 .auth-block.sign-in-type .sign-up {
