@@ -35,6 +35,8 @@
 		$stmtCount->execute();
         $resultCount = $stmtCount->get_result();
 
+        returnWithError("rowcount: " . print_r($rowCount, true));
+
         $rowCount = $resultCount->fetch_assoc(); // the amount of contacts of the userid
 
         // Debug the totalContacts count
