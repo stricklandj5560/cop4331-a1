@@ -27,6 +27,7 @@
         if (!isset($inData["UserID"])) //without a userid, can not look for assigned contacts
         {
             returnWithError("UserID is Required!");
+            return;
         }
 
 		$stmtCount = $conn->prepare("SELECT COUNT(*) AS totalContacts FROM Contacts WHERE UserID = ?"); 
@@ -71,6 +72,7 @@
 
         if ($contactCount == 0) {
             returnWithError("No Contacts Found");
+            return;
         } else {
             returnWithInfo($contactsData, $totalPages, $page);
         }
