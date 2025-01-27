@@ -7,6 +7,9 @@
     $totalPages = 0; //for frontend to know
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331"); //username and password
+    
+    error_log("connected to database");
+
 
 	if ($conn->connect_error) 
 	{
@@ -15,6 +18,8 @@
 	else
 	{
         $page = isset($inData["Page"]) && is_numeric($inData["Page"]) ? (int)$inData["Page"] : 1;
+        
+        error_log("before checking userid");
 
         if (!isset($inData["UserID"])) //without a userid, can not look for assigned contacts
         {
@@ -30,7 +35,6 @@
 
         // Debug the totalContacts count
         error_log("Total Contacts: " . $totalContacts);
-        
 
         $totalContacts = $rowCount['totalContacts'];
 
@@ -89,7 +93,7 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
-    function returnWithInfo($contactsData, $totalPages, $page)
+    function returnWithInfo()
     {
         $retValue = '{"results":[' . $contactsData . '],"totalPages":' . $totalPages . ',"currentPage":' . $page . ',"error":""}';
         sendResultInfoAsJson($retValue);
