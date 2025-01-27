@@ -112,7 +112,7 @@
 
 	$inData = getRequestInfo();
 	
-	$searchResults = "";
+	$contactsData = "";  // Initialize variable for contacts data
 	$searchCount = 0;
 	$totalPages = 0;
 	$currentPage = 1;
@@ -122,15 +122,14 @@
 		$currentPage = (int)$inData['page'];
 	}
 	
-	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331"); // Database connection
+	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 
 	if ($conn->connect_error) {
 		returnWithError($conn->connect_error);
 	} else {
-		// First, get the total count of matching contacts
-		$stmtCount = $conn->prepare("SELECT COUNT(*) AS totalContacts FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ? OR Phone LIKE ? OR Email LIKE ?) AND UserID = ?");
-		$searchName = "%" . $inData["search"] . "%";  
-		$stmtCount->bind_param("ssssi", $searchName, $searchName, $searchName, $searchName, $inData["userId"]);
+		// Get the total count of matching contacts for the specific UserID
+		$stmtCount = $conn->prepare("SELECT COUNT(*) AS totalContacts FROM Contacts WHERE UserID = ?");
+		$stmtCount->bind_param("i", $inData["UserID"]);
 		$stmtCount->execute();
 		$resultCount = $stmtCount->get_result();
 		$rowCount = $resultCount->fetch_assoc();
@@ -146,26 +145,28 @@
 		// Calculate OFFSET for SQL query
 		$offset = ($currentPage - 1) * $rowsPerPage;
 
-		// Fetch contacts for the current page
-		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ? OR Phone LIKE ? OR Email LIKE ?) AND UserID = ? ORDER BY LastName ASC LIMIT ? OFFSET ?");
-		$stmt->bind_param("ssssiii", $searchName, $searchName, $searchName, $searchName, $inData["userId"], $rowsPerPage, $offset);
+		// Fetch contacts for the current page, ordered alphabetically by LastName
+		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE UserID = ? ORDER BY LastName ASC LIMIT ? OFFSET ?");
+		$stmt->bind_param("iii", $inData["userId"], $rowsPerPage, $offset);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
 		
+		// Loop through the results and append to $contactsData
 		while($row = $result->fetch_assoc()) {
 			if ($searchCount > 0) {
-				$searchResults .= ",";
+				$contactsData .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '{"FirstName":"' . $row["FirstName"] . '","LastName":"' . $row["LastName"] . '","Phone":"' . $row["Phone"] . '","Email":"' . $row["Email"] . '","UserID":"' . $row["UserID"] . '"}';
+			$contactsData .= '{"FirstName":"' . $row["FirstName"] . '","LastName":"' . $row["LastName"] . '","Phone":"' . $row["Phone"] . '","Email":"' . $row["Email"] . '","UserID":"' . $row["UserID"] . '"}';
 		}
 		
 		// If no results found, return an error
 		if ($searchCount == 0) {
 			returnWithError("No Records Found");
 		} else {
-			returnWithInfo($searchResults, $totalPages, $currentPage);
+			// Pass the correct values to returnWithInfo
+			returnWithInfo($contactsData, $totalPages, $currentPage);
 		}
 		
 		$stmt->close();
@@ -187,9 +188,13 @@
 		sendResultInfoAsJson($retValue);
 	}
 	
-	function returnWithInfo($searchResults, $totalPages, $currentPage) {
-		$retValue = '{"results":[' . $searchResults . '],"totalPages":' . $totalPages . ',"currentPage":' . $currentPage . ',"error":""}';
+	function returnWithInfo($contactsData, $totalPages, $currentPage) {
+		// Use passed variables for response
+		$retValue = '{"results":[' . $contactsData . '],"totalPages":' . $totalPages . ',"currentPage":' . $currentPage . ',"error":""}';
 		sendResultInfoAsJson($retValue);
 	}
+
+
+
 ?>
 
