@@ -2,7 +2,7 @@
     --main-background: #001d3d;
     --dark-green: #498766;
     --btn-color: white;
-    --btn-hover: #498766;
+    --btn-hover: #3b6d52;
 }
 
 @font-face {
@@ -122,7 +122,7 @@ body {
 }
 
 .form-row {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     font-size: 26px;
     position: relative;
 }
@@ -131,7 +131,7 @@ body {
     margin-right: 5px;
     position: absolute;
     left: 15px;
-    top: 65%;
+    top: 60%;
     transform: translateY(-50%);
     font-family: Arial;
     pointer-events: none;
@@ -156,23 +156,25 @@ body {
     padding: 35px 15px 15px 15px;
     width: 100%;
     border-radius: 10px;
+    outline: none;
 }
 
 .submit-btn {
     font-size: 30px;
-    padding: 10px 40px;
-    margin-top: 20px;
-    background-color: var(--btn-color);
+    padding: 15px 0;
+    background-color: var(--dark-green);
+    color: white;
+    border: none;
     margin-bottom: 30px;
     cursor: pointer;
     transition: color .3s ease-in-out, background-color .3s ease-in-out;
     border-radius: 5px;
+    width: 100%;
 }
 
 .submit-btn:hover,
 .submit-btn:active {
     background-color: var(--btn-hover);
-    color: white;
 }
 
 .form-toggle-text {
@@ -184,7 +186,7 @@ body {
     color: #2b503c;
     transition: color .3s ease-in-out;
     cursor: pointer;
-    /* TODO: make more visible maybe? */
+    text-decoration: underline;
 }
 
 .toggle-btn:hover {
