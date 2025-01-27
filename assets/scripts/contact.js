@@ -101,4 +101,29 @@ async function saveNewContact() {
 }
 
 
+const contactCodeBlock = (contact) => {
+    return "<p>"+ contact['FirstName'] + "</p>"
+}
 
+/**
+ * Searches a user's contacts.
+ */
+async function searchContact() {
+    const search = document.getElementById("searchInput").value;
+    if (search === '')
+        return;
+    await User.getInstance().searchContacts(search).then((res) => {
+        if (res === null)
+            return;
+        if (res.error != '')
+            return;
+        const contactList = res.results;
+        const table = document.getElementById("loadedContacts");
+        let codeBlock = "";
+        for(var i = 0; i < contactList.length; i++) {
+            const contact = contactList[i];
+            codeBlock += contactCodeBlock(contact);
+         }
+         table.innerHTML = codeBlock;
+    });
+}

@@ -89,4 +89,21 @@ class API {
         return this.baseAPIPostCall(url, body);
     }
 
+    /**
+     * Searches a given user's contacts for a match.
+     * @param {Integer} userID User's ID
+     * @param {String} search User's search string.
+     * @returns Results from contact search.
+     */
+    static async searchContacts(userID, search) {
+        // build request
+        const body = {
+            'userId':userID,
+            'search':search
+        };
+        // send that
+        const url = this.BASE_API_URL + "SearchContacts.php";
+        return this.baseAPIPostCall(url,body);
+    }
+
 }
