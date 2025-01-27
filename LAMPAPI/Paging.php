@@ -27,6 +27,11 @@
         $resultCount = $stmtCount->get_result();
 
         $rowCount = $resultCount->fetch_assoc(); // the amount of contacts of the userid
+
+        // Debug the totalContacts count
+        error_log("Total Contacts: " . $totalContacts);
+        
+
         $totalContacts = $rowCount['totalContacts'];
 
         $rowsPerPage = 10;
@@ -44,6 +49,8 @@
         $stmt->execute();
         $result = $stmt->get_result();
 
+        
+
         $contactCount = 0;
         while ($row = $result->fetch_assoc()) {
             if ($contactCount > 0) {
@@ -52,6 +59,8 @@
             $contactCount++;
             $contactsData .= '{"FirstName":"' . $row["FirstName"] . '","LastName":"' . $row["LastName"] . '","Phone":"' . $row["Phone"] . '","Email":"' . $row["Email"] . '","UserID":"' . $row["UserID"] . '"}';
         }
+
+        error_log("Contact Count: " . $contactCount); // Debug contact count
 
         if ($contactCount == 0) {
             returnWithError("No Contacts Found");
