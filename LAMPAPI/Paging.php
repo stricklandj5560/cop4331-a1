@@ -147,7 +147,7 @@
 
 		// Fetch contacts for the current page, ordered alphabetically by LastName
 		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE UserID = ? ORDER BY LastName ASC LIMIT ? OFFSET ?");
-		$stmt->bind_param("iii", $inData["userId"], $rowsPerPage, $offset);
+		$stmt->bind_param("iii", $inData["UserID"], $rowsPerPage, $offset);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
