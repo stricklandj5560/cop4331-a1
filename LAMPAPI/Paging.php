@@ -80,10 +80,11 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	function returnWithInfo( $searchResults )
-	{
-        $retValue = '{"results":[' . $contactsData . '],"totalPages":' . $totalPages . ',"currentPage":' . $currentPage . ',"error":""}';
+    function returnWithInfo($contactsData, $totalPages, $page)
+    {
+        $retValue = '{"results":[' . $contactsData . '],"totalPages":' . $totalPages . ',"currentPage":' . $page . ',"error":""}';
         sendResultInfoAsJson($retValue);
-	}
+    }
+    
 	
 ?>
