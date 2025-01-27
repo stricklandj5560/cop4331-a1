@@ -1,5 +1,5 @@
 <?php
-	/*header("Access-Control-Allow-Origin: *");
+	header("Access-Control-Allow-Origin: *");
 	header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 	header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
@@ -92,108 +92,15 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"results":[],"totalPages":0,"currentPage":0,"error":"' . $err . '"}';
+		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
-    function returnWithInfo()
+    function returnWithInfo($contactsData, $totalPages, $currentPage)
     {
         $retValue = '{"results":[' . $contactsData . '],"totalPages":' . $totalPages . ',"currentPage":' . $page . ',"error":""}';
         sendResultInfoAsJson($retValue);
-    }*/
-	header("Access-Control-Allow-Origin: *");
-	header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
-	header("Access-Control-Allow-Headers: Content-Type, Authorization");
-
-	if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-		header("HTTP/1.1 200 OK");
-		exit(0);
-	}
-
-	$inData = getRequestInfo();
-	
-	$contactsData = "";  // Initialize variable for contacts data
-	$searchCount = 0;
-	$totalPages = 0;
-	$currentPage = 1;
-
-	// Check if page is provided, otherwise default to 1
-	if (isset($inData['page']) && is_numeric($inData['page'])) {
-		$currentPage = (int)$inData['page'];
-	}
-	
-	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
-
-	if ($conn->connect_error) {
-		returnWithError($conn->connect_error);
-	} else {
-		// Get the total count of matching contacts for the specific UserID
-		$stmtCount = $conn->prepare("SELECT COUNT(*) AS totalContacts FROM Contacts WHERE UserID = ?");
-		$stmtCount->bind_param("i", $inData["UserID"]);
-		$stmtCount->execute();
-		$resultCount = $stmtCount->get_result();
-		$rowCount = $resultCount->fetch_assoc();
-		$totalContacts = $rowCount['totalContacts'];
-
-		// Calculate the total number of pages
-		$rowsPerPage = 10;
-		$totalPages = ceil($totalContacts / $rowsPerPage);
-
-		// Ensure current page is within range
-		$currentPage = max(1, min($currentPage, $totalPages));
-
-		// Calculate OFFSET for SQL query
-		$offset = ($currentPage - 1) * $rowsPerPage;
-
-		// Fetch contacts for the current page, ordered alphabetically by LastName
-		$stmt = $conn->prepare("SELECT * FROM Contacts WHERE UserID = ? ORDER BY LastName ASC LIMIT ? OFFSET ?");
-		$stmt->bind_param("iii", $inData["UserID"], $rowsPerPage, $offset);
-		$stmt->execute();
-		
-		$result = $stmt->get_result();
-		
-		// Loop through the results and append to $contactsData
-		while($row = $result->fetch_assoc()) {
-			if ($searchCount > 0) {
-				$contactsData .= ",";
-			}
-			$searchCount++;
-			$contactsData .= '{"FirstName":"' . $row["FirstName"] . '","LastName":"' . $row["LastName"] . '","Phone":"' . $row["Phone"] . '","Email":"' . $row["Email"] . '","UserID":"' . $row["UserID"] . '"}';
-		}
-		
-		// If no results found, return an error
-		if ($searchCount == 0) {
-			returnWithError("No Records Found");
-		} else {
-			// Pass the correct values to returnWithInfo
-			returnWithInfo($contactsData, $totalPages, $currentPage);
-		}
-		
-		$stmt->close();
-		$conn->close();
-	}
-
-	// Helper functions
-	function getRequestInfo() {
-		return json_decode(file_get_contents('php://input'), true);
-	}
-
-	function sendResultInfoAsJson($obj) {
-		header('Content-type: application/json');
-		echo $obj;
-	}
-	
-	function returnWithError($err) {
-		$retValue = '{"results":[],"totalPages":0,"currentPage":0,"error":"' . $err . '"}';
-		sendResultInfoAsJson($retValue);
-	}
-	
-	function returnWithInfo($contactsData, $totalPages, $currentPage) {
-		// Use passed variables for response
-		$retValue = '{"results":[' . $contactsData . '],"totalPages":' . $totalPages . ',"currentPage":' . $currentPage . ',"error":""}';
-		sendResultInfoAsJson($retValue);
-	}
-
+    }
 
 
 ?>
