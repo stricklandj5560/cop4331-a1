@@ -335,7 +335,7 @@ button {
 .header-center {
     flex-grow: 1;  
     text-align: center;
-    margin-left: 25px; /* Adjust this value to move the text right */
+    margin-left: 40px; /* Adjust this value to move the text right */
 }
 
 #welcome-header-lbl {
