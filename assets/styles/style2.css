@@ -346,12 +346,6 @@ button {
     color: white;
 }
 
-.header-right {
-    display: flex;
-    font-family: 'RO-Spritendo', sans-serif;  
-    align-items: right;  /* Vertically center the log out button */
-}
-
 .profile-img {
     /*
     align-items: right;
@@ -362,6 +356,16 @@ button {
     object-fit: cover;
     */
 
-    width: 125%;;
+    width: 50%;;
     
+}
+
+.header-NE {
+    align-items: center;  /* Vertically center the log out button */
+}
+
+.header-right {
+    display: flex;
+    font-family: 'RO-Spritendo', sans-serif;  
+    align-items: right;  /* Vertically center the log out button */
 }
