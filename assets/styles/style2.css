@@ -130,6 +130,7 @@ body {
 
 button {
     padding: 10px 20px;
+    font-family: 'RO-Spritendo';
     font-size: 16px;
     border: none;
     border-radius: 5px;
@@ -325,7 +326,7 @@ button {
 
 .logo {
     font-family: 'RO-Spritendo', sans-serif;  
-    font-size: 32px;  
+    font-size: 20px;  
     font-weight: bold;
     color: white;  /* White color */
     text-align: left;
