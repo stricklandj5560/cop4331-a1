@@ -369,3 +369,116 @@ button {
     font-family: 'RO-Spritendo', sans-serif;  
     align-items: right;  /* Vertically center the log out button */
 }
+
+.contact-card-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+
+.contact-card-container {
+    background-color: #d3d3d3; 
+    width: 80%;
+    max-width: 800px; 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Individual Contact Card */
+.contact-card {
+    display: flex;
+    align-items: center;
+    background-color: var(--main-background);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 90%; 
+    margin-bottom: 15px;
+    gap: 15px;
+}
+
+
+.contact-avatar-container {
+    flex-shrink: 0; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Avatar image */
+.contact-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+}
+
+/* Contact info section */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 5px;
+}
+
+
+.contact-info .form-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.contact-info label {
+    color: white;
+    font-weight: bold;
+    width: 90px;
+}
+
+
+.contact-info input {
+    flex: 1;
+    padding: 5px;
+    border: none;
+    background-color: #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+
+.contact-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.contact-actions button {
+    font-size: 18px;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background-color: var(--button-background);
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: var(--button-hover);
+}
+
+.delete-btn {
+    background-color: var(--delete-btn);
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: var(--delete-hover);
+}
