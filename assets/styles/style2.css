@@ -175,3 +175,78 @@ button {
     justify-content: center;
     gap: 15px;
 }
+
+.delete-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* padding-top: 25%; */
+    backdrop-filter: blur(10px);
+}
+
+.delete-popup.shown {
+    display: flex;
+}
+
+.popup-block {
+    margin: auto;
+    width: 1000px;
+    min-height: 400px;
+    background-color: white;
+    border-radius: 15px;
+    box-sizing: border-box;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.popup-header {
+    font-size: 38px;
+}
+
+.popup-btns {
+    padding-right: 70px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.popup-bnt {
+    font-size: 24px;
+    padding: 15px 40px;
+}
+
+.popup-btn-cancel {
+    background-color: var(--button-background);
+    color: white;
+    transition: background-color .3s ease-in-out; 
+}
+
+.popup-btn-cancel:hover,
+.popup-bnt-cancel:active {
+    background-color: var(--button-hover);
+}
+
+.popup-btn-confirm {
+    background-color: var(--delete-btn);
+    color: white;
+    transition: background-color .3s ease-in-out; 
+}
+
+.popup-btn-confirm:hover,
+.popup-bnt-confirm:active {
+    background-color: var(--delete-hover);
+}
+
+.popup-right {
+    max-width: 40%;
+}
+
+.popup-img {
+    width: 125%;;
+}
