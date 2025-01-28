@@ -8,6 +8,15 @@
         <script src="assets/scripts/contact.js"></script>
         <script src="assets/scripts/models/user.js"></script>
         <script type="text/javascript" src="assets/scripts/md5.js"></script>
+        <!-- Contact table template. -->
+        <script type="text/template" id="tbl_content_tmpl">
+            <tr>
+                <td><%= FirstName %></td>
+                <td><%= LastName %></td>
+                <td><%= Phone %></td>
+                <td><%= Email %></td>
+            </tr>
+        </script>
         <link rel="stylesheet" href="assets/styles/style2.css">
         <title>Contacts Page</title>
     </head>
@@ -90,6 +99,10 @@
                 <button class="cancel-btn" onclick="cancelDelete()">Cancel</button>
                 <button class="delete-btn" onclick="deleteContact()">Delete</button>
             </div>
+        </div>
+
+        <!-- Contact search result / table area -->
+        <div id="loadedContacts">
         </div>
 
         

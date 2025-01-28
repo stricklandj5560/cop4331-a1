@@ -1,10 +1,18 @@
 <?php
+	header("Access-Control-Allow-Origin: *");
+	header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+	header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
+	if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+		header("HTTP/1.1 200 OK");
+		exit(0);
+	}
 
 	$inData = getRequestInfo();
 	
 	$contactsData = "";
     $totalContacts = 0;
-    $totalPages = 0; //for frontend to know
+    $totalPages = 0;
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331"); //username and password
 
@@ -19,6 +27,7 @@
         if (!isset($inData["UserID"])) //without a userid, can not look for assigned contacts
         {
             returnWithError("UserID is Required!");
+            return;
         }
 
 		$stmtCount = $conn->prepare("SELECT COUNT(*) AS totalContacts FROM Contacts WHERE UserID = ?"); 
@@ -26,7 +35,13 @@
 		$stmtCount->execute();
         $resultCount = $stmtCount->get_result();
 
+        returnWithError("rowcount: " . print_r($rowCount, true));
+
         $rowCount = $resultCount->fetch_assoc(); // the amount of contacts of the userid
+
+        // Debug the totalContacts count
+        error_log("Total Contacts: " . $totalContacts);
+
         $totalContacts = $rowCount['totalContacts'];
 
         $rowsPerPage = 10;
@@ -44,6 +59,8 @@
         $stmt->execute();
         $result = $stmt->get_result();
 
+        
+
         $contactCount = 0;
         while ($row = $result->fetch_assoc()) {
             if ($contactCount > 0) {
@@ -53,8 +70,11 @@
             $contactsData .= '{"FirstName":"' . $row["FirstName"] . '","LastName":"' . $row["LastName"] . '","Phone":"' . $row["Phone"] . '","Email":"' . $row["Email"] . '","UserID":"' . $row["UserID"] . '"}';
         }
 
+        error_log("Contact Count: " . $contactCount); // Debug contact count
+
         if ($contactCount == 0) {
             returnWithError("No Contacts Found");
+            return;
         } else {
             returnWithInfo($contactsData, $totalPages, $page);
         }
@@ -76,14 +96,16 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"results":[],"totalPages":0,"currentPage":0,"error":"' . $err . '"}';
+		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	function returnWithInfo( $searchResults )
-	{
-        $retValue = '{"results":[' . $contactsData . '],"totalPages":' . $totalPages . ',"currentPage":' . $currentPage . ',"error":""}';
+    function returnWithInfo($contactsData, $totalPages, $currentPage)
+    {
+        $retValue = '{"results":[' . $contactsData . '],"totalPages":' . $totalPages . ',"currentPage":' . $page . ',"error":""}';
         sendResultInfoAsJson($retValue);
-	}
-	
+    }
+
+
 ?>
+

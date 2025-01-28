@@ -100,4 +100,14 @@ class User {
         });
         return false;
     }
+
+    /**
+     * Searches a user's contacts for a match.
+     * @param {String} search Search String
+     * @returns List of returned contacts.
+     */
+    async searchContacts(search) {
+        const response = await API.searchContacts(this.#id, search);
+        return response;
+    }
 }
