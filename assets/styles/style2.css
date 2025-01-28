@@ -15,6 +15,13 @@ body, html {
     background-color: var(--main-background);
     color: black;
     box-sizing: border-box;
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 170px;
 }
 
 .hidden {
@@ -249,4 +256,53 @@ button {
 
 .popup-img {
     width: 125%;;
+}
+
+.page-control {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 160px;
+    padding: 10px 0px;
+    margin: auto;
+    position: absolute;
+    border-radius: 5px;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+}
+
+.page-control.hidden {
+    /* TODO: auto hide when no results */
+    display: none;
+}
+
+.page-btn {
+    padding: 0;
+    background: none;
+}
+
+.next-page {
+    transform: scaleX(-1);
+}
+
+.page-num {
+    font-size: 34px;
+    padding: 0px 20px 0px 20px;
+    background: none;
+}
+
+.page-btn svg {
+    fill: #a7a7a7;
+    transition: fill .3s ease-in-out;
+}
+
+.page-btn.active svg {
+    fill: black;
+}
+
+.page-btn.active:hover svg,
+.page-btn.active:active svg {
+    fill: var(--button-hover);
 }

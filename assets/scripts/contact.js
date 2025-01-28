@@ -127,3 +127,10 @@ async function searchContact() {
          table.innerHTML = codeBlock;
     });
 }
+
+const togglePopUp = () => {
+    const popup = document.querySelector(".delete-popup");
+    if (popup == undefined) return;
+
+    popup.classList.toggle('shown')
+}
