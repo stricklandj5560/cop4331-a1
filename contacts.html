@@ -22,9 +22,21 @@
     </head>
     <body onload="pageLoad()" class="contact-page">
         
+        <!-- changed this class header -->
         <div class="header">
-            <p id="welcome-header-lbl">Welcome </p>
-            <button type="button" onclick="logUserOut()">Log Out</button>
+            <!-- Logo on the left -->
+            <div class="logo">
+                <p>ATPF</p> <!-- Your logo text here -->
+            </div>
+        
+            <!-- Welcome message in the center -->
+            <div class="header-center">
+                <p id="welcome-header-lbl">Welcome</p>
+            </div>
+        
+            <div class="header-right">
+                <button type="button" onclick="logUserOut()">Log Out</button>
+            </div>
         </div>
 
         <!--generic search button-->
