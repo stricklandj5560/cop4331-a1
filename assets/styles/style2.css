@@ -33,15 +33,7 @@ body {
     display: none;
 }
 
-/*
-.header {
-    padding: 10px;
-    text-align: center;
-    background: var(--header-background);
-    color: black;
-    font-size: 10px;
-    font-weight: bold;
-}*/
+
 .header{
     display: flex;
     justify-content: space-between;  /* Spread out logo, welcome, and log out button */
@@ -53,6 +45,41 @@ body {
     color: black;
 }
 
+.header-logo {
+    font-family: 'RO-Spritendo', sans-serif;  
+    font-size: 20px;  
+    font-weight: bold;
+    color: white;
+    text-align: left;
+}
+
+.header-center {
+    flex-grow: 1;  
+    text-align: center;
+    margin-left: 70px;
+}
+
+#welcome-header-lbl {
+    margin: 0;
+    font-size: 20px;  
+    font-weight: bold;
+    font-family: 'RO-Spritendo', sans-serif;  
+    color: white;
+}
+
+.profile-img {
+    width: 50%;;
+}
+
+.header-NE {
+    align-items: center;
+}
+
+.header-right {
+    display: flex;
+    font-family: 'RO-Spritendo', sans-serif;  
+    align-items: right; 
+}
 
 .searchbar {
     display: flex;
@@ -322,50 +349,4 @@ button {
 .page-btn.active:hover svg,
 .page-btn.active:active svg {
     fill: var(--button-hover);
-}
-
-.logo {
-    font-family: 'RO-Spritendo', sans-serif;  
-    font-size: 20px;  
-    font-weight: bold;
-    color: white;  /* White color */
-    text-align: left;
-}
-
-.header-center {
-    flex-grow: 1;  
-    text-align: center;
-    margin-left: 70px; /* Adjust this value to move the text right */
-}
-
-#welcome-header-lbl {
-    margin: 0;
-    font-size: 20px;  
-    font-weight: bold;
-    font-family: 'RO-Spritendo', sans-serif;  
-    color: white;
-}
-
-.profile-img {
-    /*
-    align-items: right;
-    margin-right: 10px; // Adjust this value to move the text right 
-    width: 20px; 
-    height: 20px; 
-    border-radius: 50%; 
-    object-fit: cover;
-    */
-
-    width: 50%;;
-    
-}
-
-.header-NE {
-    align-items: center;  /* Vertically center the log out button */
-}
-
-.header-right {
-    display: flex;
-    font-family: 'RO-Spritendo', sans-serif;  
-    align-items: right;  /* Vertically center the log out button */
 }
