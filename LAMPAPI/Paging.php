@@ -56,7 +56,7 @@
         $offset = ($page - 1) * $rowsPerPage;
 
         //fetch the contact information
-        $stmt = $conn->prepare("SELECT * FROM Contacts WHERE UserID = ? LIMIT ? OFFSET ?");
+        $stmt = $conn->prepare("SELECT * FROM Contacts WHERE UserID = ? ORDER BY LastName ASC LIMIT ? OFFSET ?");
         $stmt->bind_param("iii", $inData["UserID"], $rowsPerPage, $offset);
         $stmt->execute();
         $result = $stmt->get_result();
