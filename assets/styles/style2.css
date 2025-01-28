@@ -354,8 +354,9 @@ button {
 
 .profile-img {
     align-items: right;
-    margin-right: 20px; /* Adjust this value to move the text right */
-    width: 10px; 
-    height: 10px; 
-    border-radius: 10%; 
+    margin-right: 10px; /* Adjust this value to move the text right */
+    width: 20px; 
+    height: 20px; 
+    border-radius: 50%; 
+    object-fit: cover;   /* Ensure the image fills the container */
 }
