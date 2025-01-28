@@ -34,7 +34,7 @@ body {
     text-align: center;
     background: var(--header-background);
     color: black;
-    font-size: 2px;
+    font-size: 10px;
     font-weight: bold;
 }
 
