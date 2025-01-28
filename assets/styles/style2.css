@@ -353,10 +353,15 @@ button {
 }
 
 .profile-img {
+    /*
     align-items: right;
-    margin-right: 10px; /* Adjust this value to move the text right */
+    margin-right: 10px; // Adjust this value to move the text right 
     width: 20px; 
     height: 20px; 
     border-radius: 50%; 
-    object-fit: cover;   /* Ensure the image fills the container */
+    object-fit: cover;
+    */
+
+    width: 125%;;
+    
 }
