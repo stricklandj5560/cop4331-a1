@@ -206,6 +206,7 @@ button {
     border-radius: 15px;
     box-sizing: border-box;
     padding: 20px 30px;
+    padding-left: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -220,7 +221,7 @@ button {
 .popup-btns {
     padding-right: 70px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .popup-bnt {
