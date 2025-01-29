@@ -43,17 +43,27 @@
 			$searchResults .= '{"FirstName":"' . $row["FirstName"] . '","LastName":"' . $row["LastName"] . '","Phone":"' . $row["Phone"] . '","Email":"' . $row["Email"] . '","UserID":"' . $row["ID"] . '"}'; //provides a json object of the contact
 		}
 		
+
+
+
 		if( $searchCount == 0 )
 		{
 			returnWithError( "No Records Found" );
 		}
 		else
 		{
-			 $totalRecords = $searchCount;
+			$stmtTotal = $conn->prepare("
+			SELECT COUNT(*) AS total FROM Contacts 
+			WHERE (FirstName LIKE ? OR LastName LIKE ? OR Phone LIKE ? OR Email LIKE ?) 
+			AND UserID = ?");
+			$stmtTotal->bind_param("ssssi", $searchName, $searchName, $searchName, $searchName, $inData["userId"]);
+			$stmtTotal->execute();
+			$resultTotal = $stmtTotal->get_result();
+			$totalRecords = $resultTotal->fetch_assoc()['total'];
 
-			 $totalPages = ceil($totalRecords / $itemsPerPage);
+			$totalPages = ceil($totalRecords / $itemsPerPage);
 			 
-			 returnWithInfo($searchResults, $totalRecords, $totalPages, $pageNumber);
+			returnWithInfo($searchResults, $totalRecords, $totalPages, $pageNumber);
 		}
 		
 		$stmt->close();
@@ -80,7 +90,7 @@
 	function returnWithInfo($searchResults, $totalRecords, $totalPages, $pageNumber)
 	{
 		// Fix the missing quote and commas in the JSON string
-		$retValue = '{"results":[' . $searchResults . '], "totalRecords":' . $totalRecords . ', "totalPages":' . $totalPages . ', "pageNumber":' . $pageNumber . ', "error":""}';
+		$retValue = '{"results":[' . json_encode($searchResults) . '], "totalRecords":' . $totalRecords . ', "totalPages":' . $totalPages . ', "pageNumber":' . $pageNumber . ', "error":""}';
 		sendResultInfoAsJson($retValue);
 	}
 	
