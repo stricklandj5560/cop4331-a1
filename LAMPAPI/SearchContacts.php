@@ -78,9 +78,11 @@
 	}
 	
 	function returnWithInfo($searchResults, $totalRecords, $totalPages, $pageNumber)
-    {
-        $retValue = '{"results":[' . $searchResults . '], "totalRecords":' . $totalRecords . ', "totalPages":' . $totalPages . ', "pageNumber":' . $pageNumber . ,"error":""'}';
-        sendResultInfoAsJson($retValue);
-    }
+	{
+		// Fix the missing quote and commas in the JSON string
+		$retValue = '{"results":[' . $searchResults . '], "totalRecords":' . $totalRecords . ', "totalPages":' . $totalPages . ', "pageNumber":' . $pageNumber . ', "error":""}';
+		sendResultInfoAsJson($retValue);
+	}
+	
 	
 ?>
