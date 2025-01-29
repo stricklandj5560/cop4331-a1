@@ -99,11 +99,17 @@ async function saveNewContact() {
     }
 }
 
+var clickCount = 0;
 function doToadSecret(id) {
     // toad is user id 0
-    if (id != 0)
+    if (id != 0 || clickCount > 5) {
+        clickCount = 0;
         return;
-    
+    }
+    if (++clickCount != 5)
+        return
+    var audio = new Audio('./assets/img/Toad.mp3');
+    audio.play();
 }
 
 const contactCodeBlock = (contact) => {
@@ -117,7 +123,7 @@ const contactCodeBlock = (contact) => {
         <div class="contact-card-container">
             <div class="contact-card">
                 <div class="contact-avatar-container">
-                    <img onClick="doToadSecret(` + UserID % 10 + `)" src="../img/contact_profile_` + UserID % 10 + `.png" alt="Contact Avatar" class="contact-avatar">
+                    <img onClick="doToadSecret(` + UserID % 10 + `)" src="./assets/img/contact_profile_` + UserID % 10 + `.png" alt="Contact Avatar" class="contact-avatar">
                 </div>
                 <div class="contact-info">
                     <div class="form-group">
@@ -163,7 +169,8 @@ async function searchContact() {
         return;
     }
     await User.getInstance().searchContacts(search, 1).then((res) => {
-        const contactList =(res === null || res.error != '') ? [] : res.results;
+        const contactList = (res === null || res.error != '') ? [] : res.results;
+        console.log("RES: " + res);
         const table = document.getElementById("loadedContacts");
         let codeBlock = "";
         for(var i = 0; i < contactList.length; i++) {

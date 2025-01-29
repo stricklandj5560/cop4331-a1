@@ -108,8 +108,6 @@ class User {
      */
     async searchContacts(search, page) {
         const response = await API.searchContacts(this.#id, search, page);
-        if (response.error != '')
-            return response.results;
         return response;
     }
 
