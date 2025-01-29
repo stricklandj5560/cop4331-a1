@@ -99,6 +99,12 @@ async function saveNewContact() {
     }
 }
 
+function doToadSecret(id) {
+    // toad is user id 0
+    if (id != 0)
+        return;
+    
+}
 
 const contactCodeBlock = (contact) => {
     const firstName = contact["FirstName"];
@@ -111,7 +117,7 @@ const contactCodeBlock = (contact) => {
         <div class="contact-card-container">
             <div class="contact-card">
                 <div class="contact-avatar-container">
-                    <img alt="Contact Avatar" class="contact-avatar">
+                    <img onClick="doToadSecret(` + UserID % 10 + `)" src="../img/contact_profile_` + UserID % 10 + `.png" alt="Contact Avatar" class="contact-avatar">
                 </div>
                 <div class="contact-info">
                     <div class="form-group">
