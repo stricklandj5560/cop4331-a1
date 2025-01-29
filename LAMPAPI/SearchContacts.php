@@ -43,27 +43,25 @@
 			$searchResults .= '{"FirstName":"' . $row["FirstName"] . '","LastName":"' . $row["LastName"] . '","Phone":"' . $row["Phone"] . '","Email":"' . $row["Email"] . '","UserID":"' . $row["ID"] . '"}'; //provides a json object of the contact
 		}
 		
-
-
-
 		if( $searchCount == 0 )
 		{
 			returnWithError( "No Records Found" );
 		}
 		else
 		{
-			$stmtTotal = $conn->prepare("
-			SELECT COUNT(*) AS total FROM Contacts 
-			WHERE (FirstName LIKE ? OR LastName LIKE ? OR Phone LIKE ? OR Email LIKE ?) 
-			AND UserID = ?");
-			$stmtTotal->bind_param("ssssi", $searchName, $searchName, $searchName, $searchName, $inData["userId"]);
-			$stmtTotal->execute();
-			$resultTotal = $stmtTotal->get_result();
-			$totalRecords = $resultTotal->fetch_assoc()['total'];
-
+			$totalRecords = $searchCount; // Use the previously fetched count of records
 			$totalPages = ceil($totalRecords / $itemsPerPage);
-			 
-			returnWithInfo($searchResults, $totalRecords, $totalPages, $pageNumber);
+			$pageNumber = max(1, min($pageNumber, $totalPages));
+			$offset = ($pageNumber - 1) * $itemsPerPage;
+			$currentPageResults = array_slice($searchResults, $offset, $itemsPerPage);
+			if ($currentPageResults)
+			{
+				returnWithInfo($currentPageResults, $totalRecords, $totalPages, $pageNumber);
+			}
+			else
+			{
+				returnWithError("No Records Found");
+			}
 		}
 		
 		$stmt->close();
