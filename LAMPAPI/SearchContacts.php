@@ -27,8 +27,8 @@
 		$offset = ($pageNumber - 1) * $itemsPerPage;
 
 		$stmt = $conn->prepare("select * from Contacts where (FirstName like ? OR LastName like ? OR Phone like ? OR Email like ?) and UserID = ? ORDER BY LastName"); //search based on whatever user would like
-		$searchName = "%" . $inData["search"] . "%";  //lowercase "search" when testing
-		$stmt->bind_param("ssssi", $searchName, $searchName, $searchName, $searchName, $inData["userId"]); // "userId" when testing
+		$searchName = "%" . $inData["Search"] . "%";  //lowercase "search" when testing
+		$stmt->bind_param("ssssi", $searchName, $searchName, $searchName, $searchName, $inData["UserID"]); // "userId" when testing
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
