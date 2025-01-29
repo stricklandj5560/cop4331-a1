@@ -21,7 +21,12 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("select * from Contacts where (FirstName like ? OR LastName like ? OR Phone like ? OR Email like ?) and UserID = ?"); //search based on whatever user would like
+
+		$pageNumber = isset($inData['Page']) ? $inData['Page'] : 1;
+		$itemsPerPage = 10;
+		$offset = ($pageNumber - 1) * $itemsPerPage;
+
+		$stmt = $conn->prepare("select * from Contacts where (FirstName like ? OR LastName like ? OR Phone like ? OR Email like ?) and UserID = ? ORDER BY LastName"); //search based on whatever user would like
 		$searchName = "%" . $inData["search"] . "%";  //lowercase "search" when testing
 		$stmt->bind_param("ssssi", $searchName, $searchName, $searchName, $searchName, $inData["userId"]); // "userId" when testing
 		$stmt->execute();
@@ -44,7 +49,11 @@
 		}
 		else
 		{
-			returnWithInfo( $searchResults );
+			 $totalRecords = $searchCount;
+
+			 $totalPages = ceil($totalRecords / $itemsPerPage);
+			 
+			 returnWithInfo($searchResults, $totalRecords, $totalPages, $pageNumber);
 		}
 		
 		$stmt->close();
@@ -68,10 +77,10 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
-	function returnWithInfo( $searchResults )
-	{
-		$retValue = '{"results":[' . $searchResults . '],"error":""}';
-		sendResultInfoAsJson( $retValue );
-	}
+	function returnWithInfo($searchResults, $totalRecords, $totalPages, $pageNumber)
+    {
+        $retValue = '{"results":[' . $searchResults . '], "totalRecords":' . $totalRecords . ', "totalPages":' . $totalPages . ', "pageNumber":' . $pageNumber . ,"error":""'}';
+        sendResultInfoAsJson($retValue);
+    }
 	
 ?>
