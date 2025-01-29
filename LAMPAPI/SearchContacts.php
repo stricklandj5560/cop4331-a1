@@ -53,15 +53,16 @@
 			$totalPages = ceil($totalRecords / $itemsPerPage);
 			$pageNumber = max(1, min($pageNumber, $totalPages));
 			$offset = ($pageNumber - 1) * $itemsPerPage;
-			$currentPageResults = array_slice($searchResults, $offset, $itemsPerPage);
-			if ($currentPageResults)
-			{
-				returnWithInfo($currentPageResults, $totalRecords, $totalPages, $pageNumber);
-			}
-			else
-			{
-				returnWithError("No Records Found");
-			}
+			returnWithInfo($searchResults, $totalRecords, $totalPages, $pageNumber);
+			//$currentPageResults = array_slice($searchResults, $offset, $itemsPerPage);
+			// if ($currentPageResults)
+			// {
+			// 	
+			// }
+			// else
+			// {
+			// 	returnWithError("No Records Found");
+			// }
 		}
 		
 		$stmt->close();
