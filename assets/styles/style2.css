@@ -373,9 +373,11 @@ button {
 } */
 
 #loadedContactsWrapper {
-    overflow: scroll;
+    overflow-y: scroll;
     max-height: 80%;
     height: fill;
+    max-width: 100%;
+    overflow-x: hidden;;
 }
 
 .contact-card-container {
