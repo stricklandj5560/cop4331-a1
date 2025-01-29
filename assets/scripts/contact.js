@@ -18,8 +18,8 @@ function logUserOut() {
 }
 
 
-function showDeleteConfirmation() {
-    document.getElementById("deleteConfirmation").classList.remove("hidden");
+function showDeleteConfirmation(userID) {
+    toggleDeletePopUp(userID);
 }
 
 
@@ -36,13 +36,11 @@ async function deleteContact() {
 //shows add contact form
 function addContact() {
     document.getElementById("addContactForm").classList.remove("hidden");
-    document.getElementById("contactContainer").classList.add("hidden");
 }
 
 
 function cancelAddContact() {
     document.getElementById("addContactForm").classList.add("hidden");
-    document.getElementById("contactContainer").classList.remove("hidden");
 }
 
 function emailKeyTyped() {
@@ -93,16 +91,57 @@ async function saveNewContact() {
 
     const result = User.getInstance().addContact(firstName,lastName,phone,email);
     if (result) {
-        console.log("Added contact")
+        console.log("Added contact") 
+        cancelAddContact();
+        searchContact();
     } else {
         console.error("Unable to add contact!")
     }
-    //add searching for contact
 }
 
 
 const contactCodeBlock = (contact) => {
-    return "<p>"+ contact['FirstName'] + "</p>"
+    const firstName = contact["FirstName"];
+    const lastName  = contact["LastName"];
+    const phone     = contact["Phone"];
+    const email     = contact["Email"];
+    const UserID    = contact["UserID"];
+    return `
+    <div class="contact-card-wrapper">
+        <div class="contact-card-container">
+            <div class="contact-card">
+                <div class="contact-avatar-container">
+                    <img alt="Contact Avatar" class="contact-avatar">
+                </div>
+                <div class="contact-info">
+                    <div class="form-group">
+                        <label>First Name:</label>
+                        <input id="contactFirstName` + UserID + `" value="` + firstName + `" readonly value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name:</label>
+                        <input type="text" id="contactLastName` + UserID + `" value="` + lastName + `" readonly value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone:</label>
+                        <input type="text" id="contactPhone` + UserID + `" value="` + phone + `" readonly value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="text" id="contactEmail` + UserID + `" value="` + email + `" readonly value="">
+                    </div>
+                </div>
+                <div class="contact-actions">
+                    <button class="edit-btn" onclick="editContact(` + UserID + `)">✏️</button>
+                    <button class="delete-btn" onclick="showDeleteConfirmation(` + UserID + `)">🗑️</button>
+                </div>
+            </div>
+        </div>
+    </div>`;
+}
+
+function editContact(index) {
+
 }
 
 /**
@@ -110,14 +149,12 @@ const contactCodeBlock = (contact) => {
  */
 async function searchContact() {
     const search = document.getElementById("searchInput").value;
-    if (search === '')
+    if (search === '') {
+        // use paging!
         return;
+    }
     await User.getInstance().searchContacts(search).then((res) => {
-        if (res === null)
-            return;
-        if (res.error != '')
-            return;
-        const contactList = res.results;
+        const contactList =(res === null || res.error != '') ? [] : res.results;
         const table = document.getElementById("loadedContacts");
         let codeBlock = "";
         for(var i = 0; i < contactList.length; i++) {
@@ -126,11 +163,35 @@ async function searchContact() {
          }
          table.innerHTML = codeBlock;
     });
+
 }
 
-const togglePopUp = () => {
+const toggleDeletePopUp = (userID) => {
+    document.getElementById("delteContactBtn").setAttribute("userID",userID);
     const popup = document.querySelector(".delete-popup");
     if (popup == undefined) return;
 
     popup.classList.toggle('shown')
+}
+
+
+/**
+ * Deletes contact.
+ * @returns Nothing
+ */
+function deleteContact() {
+    const userID = (document.getElementById("delteContactBtn").getAttribute("userID"));
+    if (userID === '' || userID === -1)
+        return;
+    
+    User.getInstance().deleteContact(userID).then((res) => {
+        if (res.error === '') {
+            console.log("Succesfully deleted contact with ID " + userID);
+            return;
+        } 
+        console.error("Unable to delete contact with UserID " + userID + " error " + res.error);
+    });
+    
+    toggleDeletePopUp(userID);
+    searchContact()
 }

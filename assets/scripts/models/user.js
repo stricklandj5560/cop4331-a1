@@ -110,4 +110,14 @@ class User {
         const response = await API.searchContacts(this.#id, search);
         return response;
     }
+
+    /**
+     * Deletes passed contact.
+     * @param {Integer} contactUserID 
+     * @returns result of deletion.
+     */
+    async deleteContact(contactUserID) {
+        const response = await API.deleteContact(contactUserID);
+        return response;
+    }
 }

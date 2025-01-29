@@ -45,7 +45,7 @@ class API {
         'login'   : username,
         'password': password
        }
-       const url = this.BASE_API_URL + "Login.php";
+       const url = API.BASE_API_URL + "Login.php";
        return this.baseAPIPostCall(url, body);
     }
 
@@ -64,7 +64,7 @@ class API {
             'Login'     : userName,
             'Password'  : password
         };
-        const url = this.BASE_API_URL + "AddUser.php";
+        const url = API.BASE_API_URL + "AddUser.php";
         return this.baseAPIPostCall(url, body);
     }
 
@@ -85,7 +85,7 @@ class API {
             'Phone'     : phone,
             'Email'     : email,
         };
-        const url = this.BASE_API_URL + "AddContact.php";
+        const url = API.BASE_API_URL + "AddContact.php";
         return this.baseAPIPostCall(url, body);
     }
 
@@ -102,7 +102,21 @@ class API {
             'search':search
         };
         // send that
-        const url = this.BASE_API_URL + "SearchContacts.php";
+        const url = API.BASE_API_URL + "SearchContacts.php";
+        return this.baseAPIPostCall(url,body);
+    }
+
+
+    /**
+     * Deletes contact ID
+     * @param {Integer} contactID 
+     * @returns response from delete
+     */
+    static async deleteContact(contactID) {
+        const body = {
+            'ID':contactID
+        };
+        const url = API.BASE_API_URL + "DeleteContact.php";
         return this.baseAPIPostCall(url,body);
     }
 

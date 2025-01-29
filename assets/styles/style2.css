@@ -6,6 +6,7 @@
     --button-hover: #9146ff; 
     --delete-btn: #e74c3c; 
     --delete-hover: #c0392b; 
+    --contact-card: #a5a2a2;
 }
 
 @font-face {
@@ -310,14 +311,16 @@ button {
 }
 
 .page-control {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
     background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 160px;
     padding: 10px 0px;
-    margin: auto;
-    position: absolute;
+    margin: auto; 
+    /* position: inline; */
     border-radius: 5px;
     bottom: 50px;
     left: 0;
@@ -364,6 +367,16 @@ button {
     width: 100%;
     margin-top: 20px;
 }
+/* 
+#loadedContacts {
+
+} */
+
+#loadedContactsWrapper {
+    overflow: scroll;
+    max-height: 80%;
+    height: fill;
+}
 
 .contact-card-container {
     background-color: #d3d3d3; 
@@ -381,13 +394,19 @@ button {
 .contact-card {
     display: flex;
     align-items: center;
-    background-color: var(--main-background);
+    background-color: var(--contact-card);
     border-radius: 10px;
     padding: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
     width: 90%; 
     margin-bottom: 15px;
     gap: 15px;
+    transition: 0.5s;
+}
+
+.contact-card:hover {
+    box-shadow: rgb(255, 255, 255) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+    transition: 0.5s;
 }
 
 .contact-avatar-container {
