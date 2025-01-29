@@ -141,8 +141,10 @@ const contactCodeBlock = (contact) => {
 }
 
 function editContact(index) {
-
+    // todo
 }
+
+
 
 /**
  * Searches a user's contacts.
@@ -151,9 +153,10 @@ async function searchContact() {
     const search = document.getElementById("searchInput").value;
     if (search === '') {
         // use paging!
+
         return;
     }
-    await User.getInstance().searchContacts(search).then((res) => {
+    await User.getInstance().searchContacts(search, 1).then((res) => {
         const contactList =(res === null || res.error != '') ? [] : res.results;
         const table = document.getElementById("loadedContacts");
         let codeBlock = "";

@@ -106,8 +106,10 @@ class User {
      * @param {String} search Search String
      * @returns List of returned contacts.
      */
-    async searchContacts(search) {
-        const response = await API.searchContacts(this.#id, search);
+    async searchContacts(search, page) {
+        const response = await API.searchContacts(this.#id, search, page);
+        if (response.error != '')
+            return response.results;
         return response;
     }
 

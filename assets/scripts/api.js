@@ -95,11 +95,12 @@ class API {
      * @param {String} search User's search string.
      * @returns Results from contact search.
      */
-    static async searchContacts(userID, search) {
+    static async searchContacts(userID, search, page) {
         // build request
         const body = {
-            'userId':userID,
-            'search':search
+            'UserID': userID,
+            'Search': search,
+            'Page'  : page
         };
         // send that
         const url = API.BASE_API_URL + "SearchContacts.php";
