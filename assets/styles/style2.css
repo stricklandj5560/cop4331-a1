@@ -95,6 +95,7 @@ body {
     justify-content: space-between;
     margin-top: 20px;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .searchbar {
@@ -108,7 +109,7 @@ body {
     width: 80%;
     padding: 15px;
     font-size: 16px;
-    font-family: 'R0-Sprintendo';
+    font-family: 'RO-Spritendo';
     border: 1px solid #ccc;
     border-radius: 5px 0 0 5px;
     outline: none;
@@ -297,7 +298,8 @@ button {
 
 
 .popup-header {
-    font-size: 38px;
+    font-size: 30px;
+    font-family: 'RO-Spritendo';
 }
 
 .popup-btns {

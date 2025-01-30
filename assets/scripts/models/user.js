@@ -111,6 +111,17 @@ class User {
         return response;
     }
 
+
+    /**
+     * Gets contact page from user.
+     * @param {Integer} page 
+     * @returns JSON response from API (contact page representation)
+     */
+    async getContactPage(page) {
+        const response = await API.getContactPage(this.#id, page);
+        return response;
+    }
+
     /**
      * Deletes passed contact.
      * @param {Integer} contactUserID 

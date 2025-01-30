@@ -107,6 +107,20 @@ class API {
         return this.baseAPIPostCall(url,body);
     }
 
+    /**
+     * Gets a contact page from the user.
+     * @param {Integer} userID 
+     * @param {Integer} page 
+     * @returns Specified contact page for user.
+     */
+    static async getContactPage(userID, page) {
+        const body = {
+            "UserID" : userID,
+            "Page"   : page
+        };
+        const url = API.BASE_API_URL + "Paging.php";
+        return this.baseAPIPostCall(url,body);
+    }
 
     /**
      * Deletes contact ID

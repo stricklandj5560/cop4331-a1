@@ -4,12 +4,14 @@ function pageLoad() {
 
     // if a user is null, that means we don't have a login
     if (!user.isLoggedIn()) {
-        console.log("User not logged in... redirection to login page.");
+        console.log("User not logged in... redirecting to login page.");
         window.location.href = "index.html";
         return;
     }
 
     document.getElementById('welcome-header-lbl').innerHTML = "Welcome, " + user.getFirstName() + "!";
+    // show users.
+    getContactPage(1);
 }
 
 function logUserOut() {
@@ -156,7 +158,24 @@ function editContact(index) {
     // todo
 }
 
-
+/**
+ * Gets a page of contacts from the user
+ * @param {Integer} pageNum Page to get.
+ */
+async function getContactPage(pageNum) {
+    await User.getInstance().getContactPage(pageNum).then((res) => {
+        // check to see if we got a valid response.
+        const contactList = (res === null || res.error != '') ? [] : res.results;
+        const table = document.getElementById("loadedContacts");
+        var codeBlock = "";
+        for (var i = 0; i < contactList.length; i++) {
+            const contact = contactList[i];
+            codeBlock    += contactCodeBlock(contact); 
+        }
+        // update contacts.
+        table.innerHTML = codeBlock;
+    });
+}
 
 /**
  * Searches a user's contacts.
@@ -165,7 +184,6 @@ async function searchContact() {
     const search = document.getElementById("searchInput").value;
     if (search === '') {
         // use paging!
-
         return;
     }
     await User.getInstance().searchContacts(search, 1).then((res) => {
@@ -179,7 +197,6 @@ async function searchContact() {
          }
          table.innerHTML = codeBlock;
     });
-
 }
 
 const toggleDeletePopUp = (userID) => {
