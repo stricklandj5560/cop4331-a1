@@ -35,12 +35,12 @@ async function deleteContact() {
 
 //shows add contact form
 function addContact() {
-    document.getElementById("addContactForm").classList.remove("hidden");
+    document.querySelector(".add-popup").classList.add("shown");
 }
 
 
 function cancelAddContact() {
-    document.getElementById("addContactForm").classList.add("hidden");
+    document.querySelector(".add-popup").classList.remove("shown");
 }
 
 function emailKeyTyped() {
@@ -49,7 +49,7 @@ function emailKeyTyped() {
     if (isEmailFormatValid(email))
         emailError.style.display = "none";
     else
-        emailError.style.display = "inline";
+        emailError.style.display = "block";
         
 }
 
@@ -59,7 +59,7 @@ function phoneKeyTyped() {
     if (isValidPhoneNumber(phone))
         phoneError.style.display = "none";
     else
-        phoneError.style.display = "inline";
+        phoneError.style.display = "block";
 }
 
 function isEmailFormatValid(email) {
