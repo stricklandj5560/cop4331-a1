@@ -88,12 +88,20 @@ body {
     align-items: right; 
 }
 
+.search-container {
+    display: flex;
+    width: 80%;
+    padding: 0 10%;
+    justify-content: space-between;
+    margin-top: 20px;
+    align-items: center;
+}
+
 .searchbar {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px auto;
-    width: 80%;
+    flex: 1;
 }
 
 .searchbar input {
@@ -105,14 +113,32 @@ body {
     border-radius: 5px 0 0 5px;
     outline: none;
     box-sizing: border-box;
+    height: 50px;
 }
 
 .searchbar .search-btn {
-    padding: 15px;
+    /* padding: 15px; */
     border: none;
     background-color: #ccc;
     border-radius: 0 5px 5px 0;
     cursor: pointer;
+    height: 50px;
+    display: block;
+    font-size: 24px;
+}
+
+.add-contact-btn {
+    padding: 15px 30px;
+    background-color: var(--button-background);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.add-contact-btn:hover {
+    background-color: var(--button-hover);
 }
 
 
@@ -236,7 +262,7 @@ button {
     gap: 15px;
 }
 
-.delete-popup {
+.popup {
     display: none;
     position: fixed;
     top: 0;
@@ -245,13 +271,16 @@ button {
     height: 100%;
     /* padding-top: 25%; */
     backdrop-filter: blur(10px);
+    z-index: 100;
 }
 
-.delete-popup.shown {
+.popup.shown {
     display: flex;
 }
 
+
 .popup-block {
+    background-color: red;
     margin: auto;
     width: 1000px;
     min-height: 400px;
@@ -308,9 +337,85 @@ button {
     max-width: 40%;
 }
 
-.popup-img {
+.delete-popup .popup-img {
     width: 125%;;
 }
+
+.add-popup .popup-block {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.add-popup .popup-left {
+    flex: 1;
+    max-width: 47%;
+}
+
+.add-popup .popup-right {
+    flex: 1;
+    min-width: 45%;
+}
+
+.form-row {
+    margin-bottom: 15px;
+    font-size: 20px;
+    position: relative;
+}
+
+.form-row:first-child {
+    margin-top: 25px;
+}
+
+.popup-form {
+    margin-bottom: 50px;
+}
+
+.form-row-label {
+    margin-right: 5px;
+    position: absolute;
+    left: 15px;
+    top: 60%;
+    transform: translateY(-50%);
+    font-family: Arial;
+    pointer-events: none;
+    font-size: 18px;
+    transition: font-size .3s ease-in-out, 
+        top .3s ease-in-out, 
+        color .3s ease-in-out;
+}
+
+.form-row-input {
+    font-size: 20px;
+    border: none;
+    border: 1px solid rgb(100, 100, 100, 30%);
+    box-shadow: 0 0 10px rgb(100, 100, 100, 30%);
+    padding: 30px 15px 10px 15px;
+    width: 100%;
+    border-radius: 10px;
+    outline: none;
+}
+
+.form-row-input:not(:placeholder-shown) ~ .form-row-label,
+.form-row-input:focus ~ .form-row-label {
+    top: 30%;
+    font-size: 14px;
+    color: var(--button-background);
+}
+
+.form-error {
+    margin-left: 5px;
+    font-size: 18px;
+}
+
+.add-popup .popup-btns {
+    padding-right: 0;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 10px;
+    /* background-color: green; */
+}
+
+/* Paging */
 
 .page-control {
     margin-top: 10px !important;
@@ -494,6 +599,7 @@ button {
 .delete-btn:hover {
     background-color: var(--delete-hover);
 }
+
 
 
 /* Scrollbar style */
