@@ -407,6 +407,8 @@ button {
 .form-error {
     margin-left: 5px;
     font-size: 18px;
+    color: var(--header-background);
+    display: none;
 }
 
 .add-popup .popup-btns {
@@ -454,6 +456,14 @@ button {
     font-size: 34px;
     padding: 0px 20px 0px 20px;
     background: none;
+}
+
+.page-btn {
+    cursor: not-allowed;
+}
+
+.page-btn.active {
+    cursor: pointer;
 }
 
 .page-btn svg {

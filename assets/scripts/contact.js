@@ -35,7 +35,7 @@ function cancelDelete() {
 
 // delete contact goes here
 async function deleteContact() {
-    alert("Contact deleted!"); 
+    // alert("Contact deleted!"); 
     cancelDelete(); 
 }
 
@@ -89,8 +89,19 @@ async function saveNewContact() {
     const email = document.getElementById("newEmail").value;
 
     
-    if (!firstName || !lastName || !phone || !email) {
-        alert("Please fill in all fields.");
+    if (!firstName) {
+        document.querySelector('#errorMessageFirstName').style.display = 'block';
+    }
+    if (!lastName) {
+        document.querySelector('#errorMessageLastName').style.display = 'block';
+    }
+    if (!isEmailFormatValid(email)) {
+        document.querySelector('#errorMessageEmail').style.display = 'block';
+    } 
+    if (!isValidPhoneNumber(phone)) {
+        document.querySelector('#errorMessagePhone').style.display = 'block';
+    }
+    if (!firstName || !lastName || !isEmailFormatValid(email) || !isValidPhoneNumber(phone)) {
         return;
     }
 
@@ -99,7 +110,9 @@ async function saveNewContact() {
     if (result) {
         console.log("Added contact") 
         cancelAddContact();
-        searchContact();
+        setTimeout(() => {
+            searchContact();
+        }, 100);
     } else {
         console.error("Unable to add contact!")
     }
@@ -179,7 +192,11 @@ async function getContactPage(pageNum) {
         }
         // update contacts.
         table.innerHTML = codeBlock;
+
         // update max page.
+        // if (res.result.length() == 0) {
+
+        // }
         if (pageNum === 1)
             updateMaxPage((contactList.length === 0) ? 1 : res.totalPages);
     });
@@ -201,7 +218,9 @@ function incrementPage() {
         incBtn.classList.remove("active");
 
     updateCurPageNum();
-    getContactPage(curPage);
+    setTimeout(() => {
+        getContactPage(curPage);
+    }, 100);
 }
 
 /**
@@ -222,7 +241,9 @@ function decrementPage() {
     }
     
     updateCurPageNum();
-    getContactPage(curPage);
+    setTimeout(() => {
+        getContactPage(curPage);
+    }, 100);
 }
 
 /**
@@ -297,5 +318,7 @@ function deleteContact() {
     });
     
     toggleDeletePopUp(userID);
-    searchContact()
+    setTimeout(() => {
+        searchContact();
+    }, 100);
 }

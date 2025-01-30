@@ -54,23 +54,25 @@
                             <input class="form-row-input" type="text" placeholder=" " id="newFirstName">
                             <label class="form-row-label" for="newFirstName">First name</label>
                         </div>
+                        <p class="form-error" id="errorMessageFirstName">Please enter first name</p>
                         <div class="form-row">
                             <input class="form-row-input" type="text" placeholder=" " id="newLastName">
-                            <label class="form-row-label" for="newLastName">First name</label>
+                            <label class="form-row-label" for="newLastName">Last name</label>
                         </div>
+                        <p class="form-error" id="errorMessageLastName">Please enter last name</p>
                         <!-- <div class="error-wrapper"> -->
                             <div class="form-row">
                                 <input class="form-row-input" type="text" placeholder=" " id="newPhone" oninput="phoneKeyTyped()">
                                 <label class="form-row-label" for="newPhone">Phone Number</label>
                             </div>
-                            <p class="form-error" style="color:red; display: none;" id="errorMessagePhone">Phone format must follow: 123-123-1234</p>
+                            <p class="form-error" id="errorMessagePhone">Phone format must follow: 123-123-1234</p>
                         <!-- </div> -->
                         <!-- <div class="error-wrapper"> -->
                             <div class="form-row">
                                 <input type="text" class="form-row-input" type="text" id="newEmail" placeholder=" " oninput="emailKeyTyped()">
                                 <label class="form-row-label" for="newEmail">Email</label>
                             </div>
-                            <p class="form-error" style="color: red; display: none;" id="errorMessageEmail">Email format must follow: name@host.com</p>
+                            <p class="form-error" id="errorMessageEmail">Email format must follow: name@host.com</p>
                         <!-- </div> -->
                     </div>
                     <div class="popup-btns">
