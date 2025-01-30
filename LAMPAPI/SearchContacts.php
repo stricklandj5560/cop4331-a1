@@ -62,7 +62,7 @@
 
 			$contacts = json_decode("[$searchResults]", true); //into an array
             $paginatedContacts = array_slice($contacts, $offset, $itemsPerPage); //slice the array!
-            error_log(print_r($paginatedContacts, true)); // **FIXED**: Log paginated contacts
+			error_log(json_encode($paginatedContacts)); // debugging!
             returnWithInfo($paginatedContacts, $totalRecords, $totalPages, $pageNumber);
 			
 
