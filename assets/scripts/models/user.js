@@ -111,7 +111,6 @@ class User {
         return response;
     }
 
-
     /**
      * Gets contact page from user.
      * @param {Integer} page 

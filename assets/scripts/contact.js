@@ -1,3 +1,6 @@
+var curPage = 1;
+var maxPage = 1;
+
 // check to see if user exists.
 function pageLoad() {
     let user = User.getInstance();
@@ -13,6 +16,7 @@ function pageLoad() {
     // show users.
     getContactPage(1);
 }
+
 
 function logUserOut() {
     User.getInstance().logOut();
@@ -163,6 +167,7 @@ function editContact(index) {
  * @param {Integer} pageNum Page to get.
  */
 async function getContactPage(pageNum) {
+
     await User.getInstance().getContactPage(pageNum).then((res) => {
         // check to see if we got a valid response.
         const contactList = (res === null || res.error != '') ? [] : res.results;
@@ -174,7 +179,72 @@ async function getContactPage(pageNum) {
         }
         // update contacts.
         table.innerHTML = codeBlock;
+        // update max page.
+        if (pageNum === 1)
+            updateMaxPage((contactList.length === 0) ? 1 : res.totalPages);
     });
+}
+
+/**
+ * Function to handle page increment
+ */
+function incrementPage() {
+    const decBtn = document.getElementById("prevPageBtn");
+    const incBtn = document.getElementById("nextPageBtn");
+
+    // shouldn't happen
+    if (curPage === maxPage)
+        return;
+
+    decBtn.classList.add("active");
+    if (++curPage === maxPage) 
+        incBtn.classList.remove("active");
+
+    updateCurPageNum();
+    getContactPage(curPage);
+}
+
+/**
+ * Handles page decrement.
+ */
+function decrementPage() {
+
+    // shouldn't happen.
+    if (curPage === 1)
+        return;
+
+    const decBtn = document.getElementById("prevPageBtn");
+    const incBtn = document.getElementById("nextPageBtn");
+
+    if (--curPage === 1) {
+        decBtn.classList.remove("active");
+        incBtn.classList.add("active");
+    }
+    
+    updateCurPageNum();
+    getContactPage(curPage);
+}
+
+/**
+ * Sets max page
+ * @param {Integer} maxPage  max page
+ */
+function updateMaxPage(maxPage) {
+    curPage = 1;
+    this.maxPage = maxPage;
+
+    const decBtn = document.getElementById("prevPageBtn");
+    const incBtn = document.getElementById("nextPageBtn");
+
+    if (curPage === maxPage) {
+        decBtn.classList.remove("active");
+        incBtn.classList.remove("active");
+    }
+}
+
+function updateCurPageNum() {
+    const curPageNum = document.getElementById("curPageNumTxt");
+    curPageNum.innerHTML = curPage;
 }
 
 /**
@@ -183,12 +253,11 @@ async function getContactPage(pageNum) {
 async function searchContact() {
     const search = document.getElementById("searchInput").value;
     if (search === '') {
-        // use paging!
+        getContactPage(1);
         return;
     }
     await User.getInstance().searchContacts(search, 1).then((res) => {
         const contactList = (res === null || res.error != '') ? [] : res.results;
-        console.log("RES: " + res);
         const table = document.getElementById("loadedContacts");
         let codeBlock = "";
         for(var i = 0; i < contactList.length; i++) {
@@ -196,6 +265,8 @@ async function searchContact() {
             codeBlock += contactCodeBlock(contact);
          }
          table.innerHTML = codeBlock;
+
+        updateMaxPage((contactList.length === 0) ? 1 : res.totalPages);
     });
 }
 
