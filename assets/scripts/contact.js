@@ -140,30 +140,31 @@ const contactCodeBlock = (contact) => {
     return `
     <div class="contact-card-wrapper">
         <div class="contact-card-container">
-            <div class="contact-card">
+            <div class="contact-card" data-userid=${UserID}>
                 <div class="contact-avatar-container">
                     <img onClick="doToadSecret(` + UserID % 10 + `)" src="./assets/img/contact_profile_` + UserID % 10 + `.png" alt="Contact Avatar" class="contact-avatar">
                 </div>
                 <div class="contact-info">
                     <div class="form-group">
                         <label>First Name:</label>
-                        <input id="contactFirstName` + UserID + `" value="` + firstName + `" readonly value="">
+                        <input class="editFirstName" id="contactFirstName` + UserID + `" value="` + firstName + `" disabled value="">
                     </div>
                     <div class="form-group">
                         <label>Last Name:</label>
-                        <input type="text" id="contactLastName` + UserID + `" value="` + lastName + `" readonly value="">
+                        <input class="editLastName" type="text" id="contactLastName` + UserID + `" value="` + lastName + `" disabled value="">
                     </div>
                     <div class="form-group">
                         <label>Phone:</label>
-                        <input type="text" id="contactPhone` + UserID + `" value="` + phone + `" readonly value="">
+                        <input class="editPhone" type="text" id="contactPhone` + UserID + `" value="` + phone + `" disabled value="">
                     </div>
                     <div class="form-group">
                         <label>Email:</label>
-                        <input type="text" id="contactEmail` + UserID + `" value="` + email + `" readonly value="">
+                        <input class="editEmail" type="text" id="contactEmail` + UserID + `" value="` + email + `" disabled value="">
                     </div>
                 </div>
                 <div class="contact-actions">
-                    <button class="edit-btn" onclick="editContact(` + UserID + `)">✏️</button>
+                    <button class="edit-btn" onclick="enableEditing(` + UserID + `)">✏️</button>
+                    <button class="save-btn" onclick="saveContact(` + UserID + `)">💾</button>
                     <button class="delete-btn" onclick="showDeleteConfirmation(` + UserID + `)">🗑️</button>
                 </div>
             </div>
@@ -171,8 +172,43 @@ const contactCodeBlock = (contact) => {
     </div>`;
 }
 
-function editContact(index) {
-    // todo
+const enableEditing = (index) => {
+    const card = document.querySelector(`.contact-card[data-userid="${index}"]`)
+    if (card === undefined) return;
+
+    card.classList.add('active');
+    const inputs = card.querySelectorAll('input');
+    for (let input of inputs) {
+        input.removeAttribute('disabled')
+    }
+}
+
+const disableEditing = (card) => {
+    card.classList.remove('active');
+    const inputs = card.querySelectorAll('input');
+    for (let input of inputs) {
+        input.setAttribute('disabled', true);
+    }
+}
+
+function saveContact(id) {
+    const card = document.querySelector(`.contact-card[data-userid="${id}"]`);
+    if (card == undefined) return;
+    const ID = id;
+    const FirstName = card.querySelector('.editFirstName').value;
+    const LastName = card.querySelector('.editFirstName').value;
+    const Phone = card.querySelector('.editPhone').value;
+    const Email = card.querySelector('.editEmail').value;
+
+    alert(JSON.stringify({
+        ID: ID,
+        FirstName: FirstName,
+        LastName: LastName,
+        Phone: Phone,
+        Email: Email
+    }));
+
+    disableEditing(card);
 }
 
 /**
@@ -194,9 +230,6 @@ async function getContactPage(pageNum) {
         table.innerHTML = codeBlock;
 
         // update max page.
-        // if (res.result.length() == 0) {
-
-        // }
         if (pageNum === 1)
             updateMaxPage((contactList.length === 0) ? 1 : res.totalPages);
     });
@@ -305,7 +338,7 @@ const toggleDeletePopUp = (userID) => {
  * @returns Nothing
  */
 function deleteContact() {
-    const userID = (document.getElementById("delteContactBtn").getAttribute("userID"));
+    const userID = (document.getElementById("deleteContactBtn").getAttribute("userID"));
     if (userID === '' || userID === -1)
         return;
     
