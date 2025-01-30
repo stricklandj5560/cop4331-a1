@@ -44,6 +44,7 @@ body {
     padding: 10px 20px;
     background: var(--header-background);
     color: black;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 .header-logo {
@@ -93,9 +94,17 @@ body {
     width: 80%;
     padding: 0 10%;
     justify-content: space-between;
-    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     align-items: center;
-    margin-bottom: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px !important;
+    background: repeating-linear-gradient(
+  45deg,
+  black,
+  black 10px,
+  rgb(55, 55, 55) 10px,
+  rgb(55, 55, 55) 20px
+);
 }
 
 .searchbar {
