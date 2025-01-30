@@ -24,16 +24,16 @@
 
 		$pageNumber = isset($inData['Page']) ? $inData['Page'] : 1;
 		$itemsPerPage = 10;
-		$offset = ($pageNumber - 1) * $itemsPerPage;
+		error_log("Offset for page $pageNumber: $offset"); // debugging
 
-		$stmt = $conn->prepare("select * from Contacts where (FirstName like ? OR LastName like ? OR Phone like ? OR Email like ?) and UserID = ? ORDER BY LastName"); //search based on whatever user would like
-		$searchName = "%" . $inData["Search"] . "%";  //lowercase "search" when testing
-		$stmt->bind_param("ssssi", $searchName, $searchName, $searchName, $searchName, $inData["UserID"]); // "userId" when testing
+		$stmt = $conn->prepare("select * from Contacts where (FirstName like ? OR LastName like ? OR Phone like ? OR Email like ?) and UserID = ? ORDER BY LastName"); //search based on whatever user would like but order by last name
+		$searchName = "%" . $inData["Search"] . "%";
+		$stmt->bind_param("ssssi", $searchName, $searchName, $searchName, $searchName, $inData["UserID"]);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
 		
-		while($row = $result->fetch_assoc())
+		while($row = $result->fetch_assoc()) //grab every contact with the specific search query
 		{
 			if( $searchCount > 0 )
 			{
@@ -43,26 +43,24 @@
 			$searchResults .= '{"FirstName":"' . $row["FirstName"] . '","LastName":"' . $row["LastName"] . '","Phone":"' . $row["Phone"] . '","Email":"' . $row["Email"] . '","UserID":"' . $row["ID"] . '"}'; //provides a json object of the contact
 		}
 		
-		if( $searchCount == 0 )
+		if( $searchCount == 0 ) //no contacts found with matching search
 		{
 			returnWithError( "No Records Found" );
 		}
-		else
+		else //need to paginate here!
 		{
+			error_log("$searchResults"); // debugging
 			$totalRecords = $searchCount; // Use the previously fetched count of records
 			$totalPages = ceil($totalRecords / $itemsPerPage);
 			$pageNumber = max(1, min($pageNumber, $totalPages));
 			$offset = ($pageNumber - 1) * $itemsPerPage;
-			returnWithInfo($searchResults, $totalRecords, $totalPages, $pageNumber);
-			//$currentPageResults = array_slice($searchResults, $offset, $itemsPerPage);
-			// if ($currentPageResults)
-			// {
-			// 	
-			// }
-			// else
-			// {
-			// 	returnWithError("No Records Found");
-			// }
+
+			 // Step 6: Slice the results based on the offset and limit
+			$paginatedContacts = array_slice($contacts, $offset, $resultsPerPage);
+			error_log($paginatedContacts);
+
+			returnWithInfo($paginatedContacts, $totalRecords, $totalPages, $pageNumber);
+
 		}
 		
 		$stmt->close();
