@@ -24,7 +24,7 @@
 
 		$pageNumber = isset($inData['Page']) ? $inData['Page'] : 1;
 		$itemsPerPage = 10;
-		error_log("Offset for page $pageNumber: $offset"); // debugging
+		error_log("Page number: $pageNumber, Items per page: $itemsPerPage"); // debugging!
 
 		$stmt = $conn->prepare("select * from Contacts where (FirstName like ? OR LastName like ? OR Phone like ? OR Email like ?) and UserID = ? ORDER BY LastName"); //search based on whatever user would like but order by last name
 		$searchName = "%" . $inData["Search"] . "%";
@@ -55,11 +55,16 @@
 			$pageNumber = max(1, min($pageNumber, $totalPages));
 			$offset = ($pageNumber - 1) * $itemsPerPage;
 
-			 // Step 6: Slice the results based on the offset and limit
-			$paginatedContacts = array_slice($contacts, $offset, $resultsPerPage);
+			/* // Step 6: Slice the results based on the offset and limit
+			$paginatedContacts = array_slice($searchResults, $offset, $itemsPerPage);
 			error_log($paginatedContacts);
+			returnWithInfo($paginatedContacts, $totalRecords, $totalPages, $pageNumber);*/
 
-			returnWithInfo($paginatedContacts, $totalRecords, $totalPages, $pageNumber);
+			$contacts = json_decode("[$searchResults]", true); //into an array
+            $paginatedContacts = array_slice($contacts, $offset, $itemsPerPage); //slice the array!
+            error_log(print_r($paginatedContacts, true)); // **FIXED**: Log paginated contacts
+            returnWithInfo($paginatedContacts, $totalRecords, $totalPages, $pageNumber);
+			
 
 		}
 		
@@ -87,7 +92,7 @@
 	function returnWithInfo($searchResults, $totalRecords, $totalPages, $pageNumber)
 	{
 		// Fix the missing quote and commas in the JSON string
-		$retValue = '{"results":[' . $paginatedContacts . '], "totalRecords":' . $totalRecords . ', "totalPages":' . $totalPages . ', "pageNumber":' . $pageNumber . ', "error":""}';
+		$retValue = '{"results":[' . json_encode($searchResults) . '], "totalRecords":' . $totalRecords . ', "totalPages":' . $totalPages . ', "pageNumber":' . $pageNumber . ', "error":""}';
 		sendResultInfoAsJson($retValue);
 	}
 	
