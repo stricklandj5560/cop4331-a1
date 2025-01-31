@@ -149,18 +149,22 @@ const contactCodeBlock = (contact) => {
                         <label>First Name:</label>
                         <input class="editFirstName" id="contactFirstName` + UserID + `" value="` + firstName + `" disabled value="">
                     </div>
+                    <p class="form-error edit-form-error" id="editFirstName">Please enter first name</p>
                     <div class="form-group">
                         <label>Last Name:</label>
                         <input class="editLastName" type="text" id="contactLastName` + UserID + `" value="` + lastName + `" disabled value="">
                     </div>
+                    <p class="form-error edit-form-error" id="editLastName">Please enter last name</p>
                     <div class="form-group">
                         <label>Phone:</label>
                         <input class="editPhone" type="text" id="contactPhone` + UserID + `" value="` + phone + `" disabled value="">
                     </div>
+                    <p class="form-error edit-form-error" id="editPhone">Phone format must follow: 123-123-1234</p>
                     <div class="form-group">
                         <label>Email:</label>
                         <input class="editEmail" type="text" id="contactEmail` + UserID + `" value="` + email + `" disabled value="">
                     </div>
+                    <p class="form-error edit-form-error" id="editEmail">Email format must follow: name@host.com</p>
                 </div>
                 <div class="contact-actions">
                     <button class="edit-btn" onclick="enableEditing(` + UserID + `)">✏️</button>
@@ -205,9 +209,37 @@ function saveContact(id) {
     if (card == undefined) return;
     const ID = id;
     const FirstName = card.querySelector('.editFirstName').value;
-    const LastName = card.querySelector('.editFirstName').value;
+    const LastName = card.querySelector('.editLastName').value;
     const Phone = card.querySelector('.editPhone').value;
     const Email = card.querySelector('.editEmail').value;
+
+    if (!FirstName) {
+        card.querySelector("#editFirstName").classList.add('active')
+    } else {
+        card.querySelector("#editFirstName").classList.remove('active')
+    }
+
+    if (!LastName) {
+        card.querySelector("#editLastName").classList.add('active')
+    } else {
+        card.querySelector("#editLastName").classList.remove('active')
+    }
+
+    if (!isValidPhoneNumber(Phone)) {
+        card.querySelector("#editPhone").classList.add('active')
+    } else {
+        card.querySelector("#editPhone").classList.remove('active')
+    }
+
+    if (!isEmailFormatValid(Email)) {
+        card.querySelector("#editEmail").classList.add('active')
+    } else {
+        card.querySelector("#editEmail").classList.remove('active')
+    }
+
+    if (!FirstName || !LastName || !isValidPhoneNumber(Phone) || !isEmailFormatValid(Email)) {
+        return;
+    }
 
     updateContact(ID, FirstName, LastName, Phone, Email);
     disableEditing(card);
