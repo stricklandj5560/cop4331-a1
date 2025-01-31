@@ -135,4 +135,19 @@ class API {
         return this.baseAPIPostCall(url,body);
     }
 
+    static async updateContact(contactID, userID, firstName, lastName, phone, email) {
+        console.log("heyyy");
+        const body = {
+            "ID": contactID,
+            "UserID": userID,
+            "FirstName": firstName,
+            "LastName": lastName,
+            "Phone": phone,
+            "Email": email,
+        }
+        // console.log(body)
+        const url = API.BASE_API_URL + "UpdateContact.php";
+        return this.baseAPIPostCall(url, body);
+    }
+
 }

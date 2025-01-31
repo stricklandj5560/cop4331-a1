@@ -191,6 +191,15 @@ const disableEditing = (card) => {
     }
 }
 
+const updateContact = async (contactID, newFirst, newLast, newPhone, newEmail) => {
+
+    await User.getInstance().updateContact(contactID, User.getInstance().getID(), newFirst, newLast, newPhone, newEmail).then((res) => {
+        if (res.error != "" || res != "Contact updated successfully") {
+            console.log(res.error);
+        }
+    })
+}
+
 function saveContact(id) {
     const card = document.querySelector(`.contact-card[data-userid="${id}"]`);
     if (card == undefined) return;
@@ -200,15 +209,11 @@ function saveContact(id) {
     const Phone = card.querySelector('.editPhone').value;
     const Email = card.querySelector('.editEmail').value;
 
-    alert(JSON.stringify({
-        ID: ID,
-        FirstName: FirstName,
-        LastName: LastName,
-        Phone: Phone,
-        Email: Email
-    }));
-
+    updateContact(ID, FirstName, LastName, Phone, Email);
     disableEditing(card);
+    setTimeout(() => {
+        getContactPage(curPage);
+    }, 100)
 }
 
 /**
@@ -307,7 +312,8 @@ function updateCurPageNum() {
 async function searchContact() {
     const search = document.getElementById("searchInput").value;
     if (search === '') {
-        getContactPage(1);
+        curPage = 1;
+        getContactPage(curPage);
         return;
     }
     await User.getInstance().searchContacts(search, 1).then((res) => {
@@ -325,7 +331,7 @@ async function searchContact() {
 }
 
 const toggleDeletePopUp = (userID) => {
-    document.getElementById("delteContactBtn").setAttribute("userID",userID);
+    document.getElementById("deleteContactBtn").setAttribute("userID",userID);
     const popup = document.querySelector(".delete-popup");
     if (popup == undefined) return;
 
@@ -338,7 +344,7 @@ const toggleDeletePopUp = (userID) => {
  * @returns Nothing
  */
 function deleteContact() {
-    const userID = (document.getElementById("deleteContactBtn").getAttribute("userID"));
+    const userID = (document.getElementById("deleteContactBtn").getAttribute("userid"));
     if (userID === '' || userID === -1)
         return;
     

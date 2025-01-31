@@ -130,4 +130,9 @@ class User {
         const response = await API.deleteContact(contactUserID);
         return response;
     }
+
+    async updateContact(contactID, userID, firstName, lastName, phone, email) {
+        const response = await API.updateContact(contactID, userID, firstName, lastName, phone, email);
+        return response;
+    }
 }
