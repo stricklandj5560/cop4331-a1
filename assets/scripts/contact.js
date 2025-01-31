@@ -91,16 +91,28 @@ async function saveNewContact() {
     
     if (!firstName) {
         document.querySelector('#errorMessageFirstName').style.display = 'block';
+    } else {
+        document.querySelector('#errorMessageFirstName').style.display = 'none';
     }
+
     if (!lastName) {
         document.querySelector('#errorMessageLastName').style.display = 'block';
+    } else {
+        document.querySelector('#errorMessageLastName').style.display = 'none';
     }
+
     if (!isEmailFormatValid(email)) {
         document.querySelector('#errorMessageEmail').style.display = 'block';
-    } 
+    } else {
+        document.querySelector('#errorMessageEmail').style.display = 'none';
+    }
+
     if (!isValidPhoneNumber(phone)) {
         document.querySelector('#errorMessagePhone').style.display = 'block';
+    } else {
+        document.querySelector('#errorMessagePhone').style.display = 'none';
     }
+
     if (!firstName || !lastName || !isEmailFormatValid(email) || !isValidPhoneNumber(phone)) {
         return;
     }
