@@ -90,9 +90,13 @@ const signUp = () => {
                 document.querySelector('#sign-in-username').value = username;
                 toggleSignType();
             } else if (res.error.endsWith("is already taken.")) {
-                document.querySelector('#errorTaken').classList.add('active');
+                const errorBlock = document.querySelector('#errorTaken')
+                errorBlock.innerHTML = "This username already exists";
+                errorBlock.classList.add('active');
             } else {
-                console.log("NO")
+                const errorBlock = document.querySelector('#errorTaken')
+                errorBlock.innerHTML = "Something went wrong, please try again later";
+                errorBlock.classList.add('active');
             }
         })
     } catch (error) {
