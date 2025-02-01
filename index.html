@@ -14,7 +14,8 @@
 </head>
 <body onload="pageLoad();">
     <div class="main-island">
-        <section class="sign-up-in auth-block sign-in-type">
+        <section class="sign-up-in auth-block"> 
+            <!-- sign-in-type -->
             <div class="sign-in">
                 <h3 class="form-header">Sign in to your account</h3>
                 <div class="sign-form">
@@ -46,24 +47,32 @@
                             First name
                         </label>
                     </div>
+                    <p class="form-error" id="errorFirstName">Please enter first name</p>
+                    
                     <div class="form-row">
                         <input placeholder=" " class="form-row-input" type="text" id="lastname" name="lastname" >
                         <label class="form-row-label" for="lastname">
                             Last name
                         </label>
                     </div>
+                    <p class="form-error" id="errorLastName">Please enter last name</p>
+
                     <div class="form-row">
                         <input placeholder=" " class="form-row-input" type="text" id="sign-up-username" name="username" >
                         <label class="form-row-label" for="sign-up-username">
                             Username
                         </label>
                     </div>
+                    <p class="form-error" id="errorUserName">Please enter username</p>
+                    
                     <div class="form-row">
                         <input placeholder=" " class="form-row-input" type="password" id="sign-up-password" name="password">
                         <label class="form-row-label" for="sign-up-password">
                             Password
                         </label>
                     </div>
+                    <p class="form-error" id="errorPassword">Please enter password</p>
+                    <p class="form-error" id="errorTaken">The username already exists</p>
                     <button class="submit-btn" type="submit" onclick="signUp();">Sign Up</button>
                 </div>
                 <!--<p class="form-toggle-text">Already have an account? <span class="toggle-btn sign-up-btn" onclick="toggleSignType();">Sign up</span></p>-->
@@ -75,11 +84,5 @@
             <label class="side-view-lbl-subheader">A Contact Manager Application</label>
         </div>
     </div>
-    <!-- <footer class="footer">
-        <div class="container">
-            Names and github link will be here
-            
-        </div>
-    </footer> -->
 </body>
 </html>

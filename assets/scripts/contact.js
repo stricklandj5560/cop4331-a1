@@ -158,22 +158,22 @@ const contactCodeBlock = (contact) => {
                 </div>
                 <div class="contact-info">
                     <div class="form-group">
-                        <label>First Name:</label>
+                        <label for="contactFirstName` + UserID + `" value="` + firstName + `">First Name:</label>
                         <input class="editFirstName" id="contactFirstName` + UserID + `" value="` + firstName + `" disabled value="">
                     </div>
                     <p class="form-error edit-form-error" id="editFirstName">Please enter first name</p>
                     <div class="form-group">
-                        <label>Last Name:</label>
+                        <label for="contactLastName` + UserID + `" value="` + lastName + `">Last Name:</label>
                         <input class="editLastName" type="text" id="contactLastName` + UserID + `" value="` + lastName + `" disabled value="">
                     </div>
                     <p class="form-error edit-form-error" id="editLastName">Please enter last name</p>
                     <div class="form-group">
-                        <label>Phone:</label>
+                        <label for="contactPhone` + UserID + `" value="` + phone + `">Phone:</label>
                         <input class="editPhone" type="text" id="contactPhone` + UserID + `" value="` + phone + `" disabled value="">
                     </div>
                     <p class="form-error edit-form-error" id="editPhone">Phone format must follow: 123-123-1234</p>
                     <div class="form-group">
-                        <label>Email:</label>
+                        <label for="contactEmail` + UserID + `" value="` + email + `">Email:</label>
                         <input class="editEmail" type="text" id="contactEmail` + UserID + `" value="` + email + `" disabled value="">
                     </div>
                     <p class="form-error edit-form-error" id="editEmail">Email format must follow: name@host.com</p>

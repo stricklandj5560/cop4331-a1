@@ -50,6 +50,32 @@ const signUp = () => {
     const username = document.querySelector("#sign-up-username").value;
     const password = document.querySelector("#sign-up-password").value;
 
+    document.querySelector('#errorTaken').classList.remove('active')
+
+    if (!firstname) {
+        document.querySelector("#errorFirstName").classList.add('active');
+    } else {
+        document.querySelector("#errorFirstName").classList.remove('active');
+    }
+
+    if (!lastname) {
+        document.querySelector("#errorLastName").classList.add('active');
+    } else {
+        document.querySelector("#errorLastName").classList.remove('active');
+    }
+
+    if (!username) {
+        document.querySelector("#errorUserName").classList.add('active');
+    } else {
+        document.querySelector("#errorUserName").classList.remove('active');
+    }
+
+    if (!password) {
+        document.querySelector("#errorPassword").classList.add('active');
+    } else {
+        document.querySelector("#errorPassword").classList.remove('active');
+    }
+
     // check if anything is blank!
     if (firstname === '' || lastname === '' || username === '' || password === '')
         return;
@@ -63,8 +89,10 @@ const signUp = () => {
                 // set
                 document.querySelector('#sign-in-username').value = username;
                 toggleSignType();
+            } else if (res.error.endsWith("is already taken.")) {
+                document.querySelector('#errorTaken').classList.add('active');
             } else {
-                alert(res.error);
+                console.log("NO")
             }
         })
     } catch (error) {
