@@ -122,6 +122,12 @@ async function saveNewContact() {
     if (result) {
         console.log("Added contact") 
         cancelAddContact();
+        
+        document.querySelector('#newFirstName').value = "";
+        document.querySelector('#newLastName').value = "";
+        document.querySelector('#newPhone').value = "";
+        document.querySelector('#newEmail').value = "";
+
         setTimeout(() => {
             searchContact();
         }, 100);
@@ -360,14 +366,16 @@ async function searchContact() {
         getContactPage(curPage);
         return;
     }
+
     await User.getInstance().searchContacts(search, 1).then((res) => {
-        const contactList = (res === null || res.error != '') ? [] : res.results;
+        const contactList = (res === null || res.error != '') ? [] : res.results[0];
         const table = document.getElementById("loadedContacts");
         let codeBlock = "";
         for(var i = 0; i < contactList.length; i++) {
             const contact = contactList[i];
             codeBlock += contactCodeBlock(contact);
          }
+         console.log(codeBlock)
          table.innerHTML = codeBlock;
 
         updateMaxPage((contactList.length === 0) ? 1 : res.totalPages);
